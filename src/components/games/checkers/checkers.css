@@ -17,7 +17,7 @@
     height: var(--cellSize);
     box-shadow: none;
 }
-div[name="black"]{
+div[name="blackcheckers"]{
     background-color: gray;
 }
 .cellcheckers:hover{

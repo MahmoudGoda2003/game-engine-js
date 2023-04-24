@@ -62,7 +62,7 @@ class XO extends Game {
   }
   
   removeEvents(){
-    const cells = document.querySelectorAll(".cell")
+    const cells = document.querySelectorAll(".cellxo")
     cells.forEach(cell => cell.replaceWith(cell.cloneNode(true)))
   }
 

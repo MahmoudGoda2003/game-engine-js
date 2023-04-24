@@ -19,14 +19,14 @@ export class Game{
           if((row % 2 === 0 && col % 2 === 0) || (row % 2 === 1 && col % 2 === 1)){
             cells.push(
               <div key={`${row}-${col}`}
-              name="white"
+              name={"white"+name}
               className={cellName}
               id={`${row}${col}`} />
           );
           }else{
             cells.push(
               <div key={`${row}-${col}`}
-              name="black"
+              name={"black"+name}
               className={cellName}
               id={`${row}${col}`} />
           );
@@ -34,7 +34,7 @@ export class Game{
         }
     }
     return (
-        <div className="board">
+        <div className={"board"+name}>
           {cells}
         </div>
     );
