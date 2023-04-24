@@ -67,7 +67,7 @@ class XO extends Game {
   }
 
   inite(){
-    const board = this.drawGameBoard(3,3);
+    const board = this.drawGameBoard(3,3, "xo");
     const cells = board.props.children.map((cell, index) => {
       return React.cloneElement(cell, {
         onClick: (event) => this.controller(this.state, event)
@@ -80,7 +80,7 @@ class XO extends Game {
     return (
       <>
         <ScoreBoard score1={this.state.score1} score2={this.state.score2} turn={this.state.turn}/>
-        <div className="board">{cells}</div>
+        <div className="boardxo">{cells}</div>
       </>
     )
   }

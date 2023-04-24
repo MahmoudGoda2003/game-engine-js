@@ -1,0 +1,25 @@
+:root{
+    --cellSize:60px;
+}
+.boardcheckers{
+    display: grid;
+    grid-template-rows: repeat(8,var(--cellSize));
+    grid-template-columns: repeat(8,var(--cellSize));
+    row-gap: 2px;
+    column-gap: 2px;
+    border: 2px solid black;
+}
+.cellcheckers{
+    background-color: white;
+    border-radius: 0;
+    padding: 0;
+    width: var(--cellSize);
+    height: var(--cellSize);
+    box-shadow: none;
+}
+div[name="black"]{
+    background-color: gray;
+}
+.cellcheckers:hover{
+    border: 2px solid red;
+}
