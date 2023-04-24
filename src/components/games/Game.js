@@ -1,7 +1,10 @@
 export class Game{
   drawer(state){
   }
-  Controller(state,move){
+  controller(state,move){
+  }
+  setState(state) {
+    this.state = { ...this.state, ...state };
   }
   drawGameBoard(rowNum, colNum){
     const board = document.querySelector('.board');

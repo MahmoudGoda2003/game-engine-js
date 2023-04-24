@@ -1,0 +1,52 @@
+.board{
+    display: grid;
+    background-color: black;
+    grid-template-columns: repeat(3,8rem);
+    place-items: center;
+    justify-content: center;
+}
+.cell{
+    display: flex;
+    box-shadow: 0px 0px 8px #888;
+    background-color: white;
+    width: 7rem;
+    height: 7rem;
+    margin: 0.5rem;
+    border-radius: 10%;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell:hover{
+    box-shadow: 0px 0px 15px #888;
+}
+.circle{
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    border: 15px solid blue;
+    box-sizing: border-box;
+}
+.cross{
+    height: 90px;
+    width: 90px;
+    position: relative;
+    transform: rotate(45deg);
+}
+.cross::before, .cross::after{
+    content: "";
+    position: absolute;
+    background-color: red;
+}
+.cross::before{
+    left: 50%;
+    width: 30%;
+    margin-left: -15%;
+    height: 100%;
+}
+.cross::after{
+    top: 50%;
+    height: 30%;
+    margin-top: -15%;
+    width: 100%;
+}
