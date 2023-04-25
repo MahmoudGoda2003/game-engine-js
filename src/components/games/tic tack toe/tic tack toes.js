@@ -26,7 +26,7 @@ class XO extends Game {
 
   controller(state, input){
     const id = input.target.id
-    if(state.board[(id%10)+3*Math.floor(id/10)]!=="") return;
+    if(state.board[(id%10)+3*Math.floor(id/10)]!=="" || id === "") return;
     state.board[(id%10)+3*Math.floor(id/10)] = state.turn ? "o" : "x";
     this.drawer(input)
     this.checkWin(state)

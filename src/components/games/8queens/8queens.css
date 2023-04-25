@@ -1,0 +1,29 @@
+:root{
+    --cellSize:60px;
+}
+.boardqueens{
+    display: grid;
+    grid-template-rows: repeat(8,var(--cellSize));
+    grid-template-columns: repeat(8,var(--cellSize));
+    border: 5px solid black;
+}
+.cellqueens{
+    display: flex;
+    background-color: white;
+    width: var(--cellSize);
+    height: var(--cellSize);
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+}
+div[name="blackqueens"]{
+    background-color: gray;
+}
+
+.state{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    
+}
