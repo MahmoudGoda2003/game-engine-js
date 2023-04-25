@@ -13,7 +13,6 @@ function getGame(gameName){
 }
 
 export const GameStarter = () => {
-  console.log("AASFFFFffffa")
   const { id } = useParams();
   const game = getGame(id);
   return(
