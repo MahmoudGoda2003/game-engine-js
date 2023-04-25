@@ -5,6 +5,7 @@ import { ScoreBoard } from '../../scoreBoard/scoreBoard.js'
 
 class checkers extends Game{
     move = "";
+    jump = false;
     constructor(props){
         super(props)
         this.state = {
@@ -21,6 +22,21 @@ class checkers extends Game{
         if(state === undefined){
           return this.inite()
         }  
+        for(var i = 0 ; i < 8 ; i++)
+        {
+            for(var j = 0 ; j < 8 ; j++)
+            {
+                if(i % 2 !== j % 2)
+                {
+                    if(state.arr[i][j] === 1)
+                        this.putBlack(""+i+j)
+                    else if(state.arr[i][j] === -1)
+                        this.putWhite(""+i+j)
+                    else
+                        this.makeEpty(""+i+j)
+                }
+            }
+        }
     }
 
     controller(state, input){
@@ -32,33 +48,100 @@ class checkers extends Game{
             const j1 = parseInt(this.move[1])
             const i2 = parseInt(this.move[2])
             const j2 = parseInt(this.move[3])
+            // not on the diagonal
             if(Math.abs(j2-j1) !== Math.abs(i2-i1))
             {
                 console.log("invalid move1");
                 this.move = this.move.slice(0,2)
                 return;
             }
-                
-            if( ( (j2 < j1 && i2 < i1) && state.turn ) || ((j2 > j1 && i2 > i1) && !state.turn))
+            // not forward
+            if( (  i2 < i1 && state.turn ) || ( i2 > i1 && !state.turn))
             {
                 console.log("invalid move2");
                 this.move = this.move.slice(0,2)
                 return;
             }
-            state.arr[i2][j2] = state.arr[i1][j1]
-            state.arr[i1][j1] = 0;
-            this.makeEpty(this.move.slice(0,2))
-            if(state.turn)
-                this.putBlack(this.move.slice(2,5))
-            else
+            // do not jump over a friend
+            if(Math.abs(i2-i1) !== 1 && !this.jump)
             {
-                
-                this.putWhite(this.move.slice(2,5))
+                this.move = ""+ i1 + j1
+                console.log("jump over a friend")
+                return;
             }
+            
+            if(this.jump)
+            {
+                state.arr[i2][j2] = state.arr[i1][j1];
+                state.arr[i1][j1] = 0;
+                state.arr[i1 + state.arr[i2][j2]][j1 + (j2-j1)/2] = 0
+                this.drawer(state)
+                this.move = ""
+                if(this.getTarget(state) === "")
+                {
+                    
+                    state.turn = !state.turn
+                }
+                    
+                return;
+            }
+            state.arr[i2][j2] = state.arr[i1][j1];
+            state.arr[i1][j1] = 0;
+            this.drawer(state)
             this.move = ""
+            this.jump = false;
             state.turn = ! state.turn
         }
       }
+
+    getTarget(state)
+    {
+        var target = "";
+        for(var i = 0 ; i < 8 ; i++)
+        {
+            for(var j = 0 ; j < 8 ; j++)
+            {
+                var direction = state.arr[i][j];
+                // not empty and balck
+                if(direction !== 0 && i%2 !== j %2 &&  i + direction !== -1 && i + direction !== 8) 
+                {
+                    // has turn
+                    if((state.turn && direction === 1) || (!state.turn && direction === -1))
+                    {
+                        if(j !== 7 && state.arr[i+direction][j+1] === -1 * direction )
+                        {
+                            var ti = i + direction
+                            var tj = j+1
+                            
+                            if(state.arr[ti+direction][tj + (tj - j)] === 0)
+                            {
+                                target = "" + ti + tj;
+                                this.jump = true;
+                                console.log("target +ve is " + target)
+                                return target;
+                            }
+                        }
+                        if(j !== 0 && state.arr[i+direction][j-1] === -1 * direction)
+                        {
+                            var ti = i + direction;
+                            var tj = j -1;
+                            
+                            if(state.arr[ti+direction][tj + (tj - j)] === 0)
+                            {
+                                target = "" + ti + tj;
+                                this.jump = true;
+                                console.log("target -ve is " + target)
+                                return target;
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+        this.jump = false
+        return target;
+    }
 
     inite(){
         const board = this.drawGameBoard(8,8, "checkers");
@@ -68,6 +151,7 @@ class checkers extends Game{
             });
         });
         this.putPieces();
+        
         return (
             <>
             <ScoreBoard score1={this.state.score1} score2={this.state.score2} turn={this.state.turn}/>
@@ -84,6 +168,8 @@ class checkers extends Game{
 
     putWhite(n){
         const c = document.getElementById(n);
+        c.style.width = "50px"
+        c.style.height = "50px"
         c.style.backgroundColor = "white"
         c.style.borderRadius = "100%"
         c.style.border = "2px solid black"
@@ -91,26 +177,56 @@ class checkers extends Game{
 
     putBlack(n){
         const c = document.getElementById(n);
+        c.style.width = "50px"
+        c.style.height = "50px"
         c.style.backgroundColor = "black"
         c.style.borderRadius = "100%"
         c.style.border = "2px solid white"
     }
 
     selectSrc(src){
+        var t = this.getTarget(this.state)
         var n = src.target.id
         const i1 = parseInt(n[0])
         const j1 = parseInt(n[1])
-        if((this.state.turn &&  this.state.arr[i1][j1] !== 1) || (!this.state.turn &&  this.state.arr[i1][j1] !== -1))
-            return;
-        this.move = n;
-        const c = document.getElementById(src.target.id);
-        c.style.border = "2px solid red"
+        
+        // there is no possible jump
+        if(t === "")
+        {
+            if((this.state.turn &&  this.state.arr[i1][j1] !== 1) || (!this.state.turn &&  this.state.arr[i1][j1] !== -1))
+                return;
+            this.move = n;
+            const c = document.getElementById(src.target.id);
+            c.style.border = "2px solid red"
+        }
+        // there must be a jump
+        else
+        {
+            var direction = this.state.arr[i1][j1]
+            // stand on correct place
+            if(i1+ direction == t[0] && Math.abs(j1 - t[1]) == 1)
+            {
+                this.move = n;
+                const c = document.getElementById(src.target.id);
+                c.style.border = "2px solid red"
+            }
+        }
     }
 
     selectDest(src){
         var n = src.target.id
         const i1 = parseInt(n[0])
         const j1 = parseInt(n[1])
+        if(this.jump)
+        {
+            if(Math.abs(i1 - parseInt(this.move[0])) === Math.abs(j1 - parseInt(this.move[1])) && Math.abs(j1 - parseInt(this.move[1])) === 2)
+            {
+                this.move = this.move+n;
+                return true;
+            }
+            return false;
+        }
+        
         // destination not empty
         if(this.state.arr[i1][j1] !== 0)
         {
@@ -129,7 +245,8 @@ class checkers extends Game{
         }
     }
 
-    putPieces(){
+    putPieces()
+    {
         for(var i = 0 ; i < 8 ; i++)
         {
             for(var j = 0 ; j < 8 ; j++)
