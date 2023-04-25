@@ -79,8 +79,8 @@ class checkers extends Game{
                 this.move = ""
                 if(this.getTarget(state) === "")
                 {
-                    
                     state.turn = !state.turn
+                    this.toggilColor()
                 }
                     
                 return;
@@ -91,6 +91,7 @@ class checkers extends Game{
             this.move = ""
             this.jump = false;
             state.turn = ! state.turn
+            this.toggilColor()
         }
       }
 
@@ -113,7 +114,7 @@ class checkers extends Game{
                             var ti = i + direction
                             var tj = j+1
                             
-                            if(state.arr[ti+direction][tj + (tj - j)] === 0)
+                            if(ti + direction > -1 && 2*tj-j >-1 &&ti + direction < 8 && 2*tj-j < 8 &&state.arr[ti+direction][tj + (tj - j)] === 0)
                             {
                                 target = "" + ti + tj;
                                 this.jump = true;
@@ -126,7 +127,7 @@ class checkers extends Game{
                             var ti = i + direction;
                             var tj = j -1;
                             
-                            if(state.arr[ti+direction][tj + (tj - j)] === 0)
+                            if(ti + direction > -1 && 2*tj-j >-1 &&ti + direction < 8 && 2*tj-j < 8 &&  state.arr[ti+direction][tj + (tj - j)] === 0)
                             {
                                 target = "" + ti + tj;
                                 this.jump = true;
@@ -141,6 +142,13 @@ class checkers extends Game{
         }
         this.jump = false
         return target;
+    }
+
+    toggilColor(){
+        const score1 = document.querySelector(".p1-score");
+        const score2 = document.querySelector(".p2-score");
+        score1.className = `score p1-score ${!this.state.turn && "inactive"}`;
+        score2.className = `score p2-score ${this.state.turn && "inactive"}`;
     }
 
     inite(){
@@ -217,15 +225,6 @@ class checkers extends Game{
         var n = src.target.id
         const i1 = parseInt(n[0])
         const j1 = parseInt(n[1])
-        if(this.jump)
-        {
-            if(Math.abs(i1 - parseInt(this.move[0])) === Math.abs(j1 - parseInt(this.move[1])) && Math.abs(j1 - parseInt(this.move[1])) === 2)
-            {
-                this.move = this.move+n;
-                return true;
-            }
-            return false;
-        }
         
         // destination not empty
         if(this.state.arr[i1][j1] !== 0)
@@ -240,6 +239,15 @@ class checkers extends Game{
             this.selectSrc(src)
             return false;
         }else{
+            if(this.jump)
+            {
+                if(Math.abs(i1 - parseInt(this.move[0])) === Math.abs(j1 - parseInt(this.move[1])) && Math.abs(j1 - parseInt(this.move[1])) === 2)
+                {
+                    this.move = this.move+n;
+                    return true;
+                }
+                return false;
+            }
             this.move = this.move+n;
             return true;
         }
