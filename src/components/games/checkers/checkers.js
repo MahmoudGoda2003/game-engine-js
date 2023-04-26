@@ -10,12 +10,8 @@ class checkers extends Game{
         super(props)
         this.state = {
             turn: true,
-            arr: new Array(8)
+            arr: new Array(8).fill().map(() => new Array(8).fill(0))
         };
-        for(var i = 0 ; i  < 8 ; i++)
-        {
-            this.state.arr[i] = new Array(8).fill(0);
-        }
     }
 
     drawer(state){
@@ -82,7 +78,6 @@ class checkers extends Game{
                     state.turn = !state.turn
                     this.toggilColor()
                 }
-                    
                 return;
             }
             state.arr[i2][j2] = state.arr[i1][j1];
@@ -152,7 +147,7 @@ class checkers extends Game{
     }
 
     inite(){
-        const board = this.drawGameBoard(8,8, "checkers");
+        const board = this.drawGameBoard(8,8, "checkers","div");
         const cells = board.props.children.map((cell, index) => {
             return React.cloneElement(cell, {
             onClick: (event) => this.controller(this.state, event)

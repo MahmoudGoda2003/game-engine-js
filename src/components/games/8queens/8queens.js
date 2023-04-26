@@ -78,7 +78,7 @@ class Queens extends Game{
     }
 
     init(){
-        const board = this.drawGameBoard(8,8, "queens");
+        const board = this.drawGameBoard(8,8, "queens","div");
         const cells = board.props.children.map((cell, index) => {
             return React.cloneElement(cell, {
             onClick: (event) => this.controller(this.state, event),
