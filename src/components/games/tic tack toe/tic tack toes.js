@@ -8,7 +8,8 @@ class XO extends Game {
   constructor(props){
     super(props)
     this.state = {
-      turn: false,
+      turn: 0,
+      playerNum: 2,
       board: new Array(9).fill(""),
       rowNum: 3,
       colNum: 3,
@@ -47,38 +48,34 @@ class XO extends Game {
   updateState(state, input){
     const id = input.target.id;
     state.board[(id%10)+3*Math.floor(id/10)] = state.turn ? "o" : "x";
-    this.setState({
-      move: input,
-      board: state.board,
-      turn: !state.turn
-    })
-    state.move=input; 
+    state.move = input;
+    state.turn = !this.switchTurn(state);
   }
 
   checkWin(state){
     const winStates = [[0, 1, 2],[3, 4, 5],[6, 7, 8],[0, 3, 6],[1, 4, 7],[2, 5, 8],[0, 4, 8],[2, 4, 6]]
     winStates.forEach(array =>{
-      let win = array.every(cell => state.board[cell]===(state.turn?"o":"x"))
+      let win = array.every(cell => state.board[cell]===(!state.turn?"o":"x"))
       if(win){
-        if(!state.turn){
-          this.setState({score1: this.state.score1 + 1});
+        if(state.turn){
+          state.score1= this.state.score1 + 1;
         } else {
-          this.setState({score2: this.state.score2 + 1});
+          state.score2= this.state.score2 + 1;
         }
         this.removeEvents()
         return;
       }
     })
-    this.updateScoreboard();
+    this.updateScoreboard(state);
   }
 
-  updateScoreboard() {
+  updateScoreboard(state) {
     const score1 = document.querySelector(".p1-score");
     const score2 = document.querySelector(".p2-score");
-    score1.textContent = `p1 - ${this.state.score1}`;
-    score2.textContent = `p2 - ${this.state.score2}`;
-    score1.className = `score p1-score ${this.state.turn && "inactive"}`;
-    score2.className = `score p2-score ${!this.state.turn && "inactive"}`;
+    score1.textContent = `p1 - ${state.score1}`;
+    score2.textContent = `p2 - ${state.score2}`;
+    score1.className = `score p1-score ${state.turn && "inactive"}`;
+    score2.className = `score p2-score ${!state.turn && "inactive"}`;
   }
   
   removeEvents(){

@@ -28,9 +28,8 @@ export class Game{
   checkWin(state){}
   
 
-  setState(state) {
-    this.state = { ...this.state, ...state };
-    state = this.state;
+  switchTurn(state) {
+    return state.turn++%state.playerNum;
   }
 
   drawGameBoard(rowNum, colNum, name,ElementType){
