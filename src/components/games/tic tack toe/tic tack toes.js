@@ -44,7 +44,7 @@ class XO extends Game {
     const id = input.target.id;
     state.board[(id%10)+3*Math.floor(id/10)] = state.turn ? "o" : "x";
     state.move = input;
-    state.turn = !this.switchTurn(state);
+    state.turn = this.switchTurn(state);
   }
 
   checkWin(state){

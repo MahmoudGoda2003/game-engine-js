@@ -29,7 +29,7 @@ export class Game{
   
 
   switchTurn(state) {
-    return state.turn++%state.playerNum;
+    return (state.turn+1)%state.playerNum;
   }
 
   drawGameBoard(rowNum, colNum, name, ElementType, eventListeners){
