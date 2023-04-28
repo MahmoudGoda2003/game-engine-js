@@ -6,7 +6,7 @@ export class Game{
     this.updateBoard(state);
   } 
   init(state){
-    const board = this.drawGameBoard(state.rowNum,state.colNum,state.game,state.ElementType);
+    const board = this.drawGameBoard(state.rowNum,state.colNum,state.game,state.ElementType,state.events);
     return this.putPices(board);
   }
   putPices(board){}
@@ -32,7 +32,7 @@ export class Game{
     return state.turn++%state.playerNum;
   }
 
-  drawGameBoard(rowNum, colNum, name,ElementType){
+  drawGameBoard(rowNum, colNum, name, ElementType, eventListeners){
     const board = document.querySelector('.board');
     if (board) {
         board.remove();  
@@ -47,14 +47,18 @@ export class Game{
               <ElementType key={`${row}-${col}`}
               name={"white"+name}
               className={cellName}
-              id={`${row}${col}`} />
+              id={`${row}${col}`} 
+              {...eventListeners}
+              />
           );
           }else{
             cells.push(
               <ElementType key={`${row}-${col}`}
               name={"black"+name}
               className={cellName}
-              id={`${row}${col}`} />
+              id={`${row}${col}`} 
+              {...eventListeners}
+              />
           );
           }  
         }

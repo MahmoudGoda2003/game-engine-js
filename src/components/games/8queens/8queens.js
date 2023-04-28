@@ -1,6 +1,5 @@
 import React from 'react'
 import Game from '../Game.js'
-import "./8queens.css"
 
 class Queens extends Game{
 
@@ -9,12 +8,12 @@ class Queens extends Game{
         this.state = {
             board: new Array(8).fill().map(() => new Array(8).fill(0)),
             count: 8,
-            stack: new Array(8).fill(0),
             rowNum: 8,
             colNum: 8,
             ElementType: "div",
             game: "queens",
             move: null,
+            events:{onClick: (event) => this.controller(this.state, event),onMouseEnter: (event) => this.hover("enter",this.state,event),onMouseLeave: (event) => this.hover("leave",this.state,event)}
         };
     }
     updateBoard(state){
@@ -23,16 +22,9 @@ class Queens extends Game{
         state.move.target.append(piece);
     }
     putPices(board){
-        const cells = board.props.children.map((cell, index) => {
-            return React.cloneElement(cell, {
-            onClick: (event) => this.controller(this.state, event),
-            onMouseEnter: (event) => this.hover("enter",this.state,event),
-            onMouseLeave: (event) => this.hover("leave",this.state,event)
-            });
-        });
         return (<>
             <div className="state">unsolved</div>
-            <div className="boardqueens">{cells}</div>
+            {board}
             </>
         )
     }

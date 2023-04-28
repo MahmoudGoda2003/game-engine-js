@@ -1,6 +1,5 @@
 import React from 'react'
 import Game from '../Game.js'
-import "./tic tack toe.css"
 import { ScoreBoard } from '../../scoreBoard/scoreBoard.js'
 
 class XO extends Game {
@@ -17,7 +16,8 @@ class XO extends Game {
       game: "xo",
       move: null,
       score1: 0,
-      score2: 0
+      score2: 0,
+      events:{onClick: (event) => this.controller(this.state, event)}
     };
   }
 
@@ -28,15 +28,10 @@ class XO extends Game {
   }
 
   putPices(board){
-    const cells = board.props.children.map((cell, index) => {
-      return React.cloneElement(cell, {
-        onClick: (event) => this.controller(this.state, event)
-      });
-    });
     return (
       <>
         <ScoreBoard score1={this.state.score1} score2={this.state.score2} turn={!this.state.turn}/>
-        <div className="boardxo">{cells}</div>
+        {board}
       </>
     )
   }

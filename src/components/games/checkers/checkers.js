@@ -1,6 +1,5 @@
 import React from 'react'
 import Game from '../Game.js'
-import "./checkers.css"
 import { ScoreBoard } from '../../scoreBoard/scoreBoard.js'
 
 class checkers extends Game{
