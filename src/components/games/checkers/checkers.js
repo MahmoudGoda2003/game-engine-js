@@ -9,15 +9,13 @@ class checkers extends Game{
         super(props)
         this.state = {
             turn: true,
-            arr: new Array(8).fill().map(() => new Array(8).fill(0))
+            rowNum: 8,
+            colNum: 8,
+            ElementType: "div",
+            game: "checkers",
+            arr: new Array(8).fill().map(() => new Array(8).fill(0)),
+            events:{onClick: (event) => this.controller(this.state, event)}
         };
-    }
-
-    drawer(state){
-        if(state === undefined){
-          return this.inite()
-        }  
-        this.updateBoard(state)
     }
 
     updateBoard(state)
@@ -59,7 +57,6 @@ class checkers extends Game{
             }
         }
     }
-
 
     updateState(state,move){
         const i1 = parseInt(move[0])
@@ -160,23 +157,6 @@ class checkers extends Game{
         score2.className = `score p2-score ${this.state.turn && "inactive"}`;
     }
 
-    inite(){
-        const board = this.drawGameBoard(8,8, "checkers","div");
-        const cells = board.props.children.map((cell, index) => {
-            return React.cloneElement(cell, {
-            onClick: (event) => this.controller(this.state, event)
-            });
-        });
-        this.putPieces();
-        
-        return (
-            <>
-            <ScoreBoard score1={this.state.score1} score2={this.state.score2} turn={this.state.turn}/>
-            <div className="boardcheckers">{cells}</div>
-            </>
-        )
-    }
-
     makeEpty(n){
         const c = document.getElementById(n);
         c.style.backgroundColor = "grey"
@@ -262,7 +242,7 @@ class checkers extends Game{
         }
     }
 
-    putPieces()
+    putPieces(board)
     {
         for(var i = 0 ; i < 8 ; i++)
         {
@@ -281,6 +261,13 @@ class checkers extends Game{
                 }
             }
         }
+        return (
+            <>
+            <ScoreBoard score1={this.state.score1} score2={this.state.score2} turn={this.state.turn}/>
+            {board}
+            </>
+        )
     }
+    
 }
 export default checkers

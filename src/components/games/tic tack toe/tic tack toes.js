@@ -27,7 +27,7 @@ class XO extends Game {
     state.move.target.append(piece);
   }
 
-  putPices(board){
+  putPieces(board){
     return (
       <>
         <ScoreBoard score1={this.state.score1} score2={this.state.score2} turn={!this.state.turn}/>

@@ -19,7 +19,7 @@ class chess extends Game{
         };
     }
 
-    putPices(board){
+    putPieces(board){
         const pieces = [["rook","knight","bishop","queen","king","bishop","knight","rook"],["pawn","pawn","pawn","pawn","pawn","pawn","pawn","pawn"]];
         const modifiedBoard = board.props.children.map((cell, index) => {
           if(index < 16) {

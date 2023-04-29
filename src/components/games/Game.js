@@ -7,9 +7,9 @@ export class Game{
   } 
   init(state){
     const board = this.drawGameBoard(state.rowNum,state.colNum,state.game,state.ElementType,state.events);
-    return this.putPices(board);
+    return this.putPieces(board);
   }
-  putPices(board){}
+  putPieces(board){}
 
   updateBoard(state){}
 

@@ -21,7 +21,7 @@ class Queens extends Game{
         piece.className = "fas fa-chess-queen"
         state.move.target.append(piece);
     }
-    putPices(board){
+    putPieces(board){
         return (<>
             <div className="state">unsolved</div>
             {board}
