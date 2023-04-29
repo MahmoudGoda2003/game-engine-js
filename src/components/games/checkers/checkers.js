@@ -17,6 +17,11 @@ class checkers extends Game{
         if(state === undefined){
           return this.inite()
         }  
+        this.updateBoard(state)
+    }
+
+    updateBoard(state)
+    {
         for(var i = 0 ; i < 8 ; i++)
         {
             for(var j = 0 ; j < 8 ; j++)
@@ -34,60 +39,70 @@ class checkers extends Game{
         }
     }
 
-    controller(state, input){
+    controller(state, move){
         if(this.move === "")
-            this.selectSrc(input)
-        else if(this.selectDest(input))
+            this.selectSrc(move)
+        else if(this.selectDest(move))
         {
-            const i1 = parseInt(this.move[0])
-            const j1 = parseInt(this.move[1])
-            const i2 = parseInt(this.move[2])
-            const j2 = parseInt(this.move[3])
-            // not on the diagonal
-            if(Math.abs(j2-j1) !== Math.abs(i2-i1))
+            if(this.isValidMove(state, this.move))
             {
-                console.log("invalid move1");
-                this.move = this.move.slice(0,2)
-                return;
-            }
-            // not forward
-            if( (  i2 < i1 && state.turn ) || ( i2 > i1 && !state.turn))
-            {
-                console.log("invalid move2");
-                this.move = this.move.slice(0,2)
-                return;
-            }
-            // do not jump over a friend
-            if(Math.abs(i2-i1) !== 1 && !this.jump)
-            {
-                this.move = ""+ i1 + j1
-                console.log("jump over a friend")
-                return;
-            }
-            
-            if(this.jump)
-            {
-                state.arr[i2][j2] = state.arr[i1][j1];
-                state.arr[i1][j1] = 0;
-                state.arr[i1 + state.arr[i2][j2]][j1 + (j2-j1)/2] = 0
+                this.updateState(state, this.move)
                 this.drawer(state)
                 this.move = ""
-                if(this.getTarget(state) === "")
+                if(this.jump && this.getTarget(state) !== "")
                 {
-                    state.turn = !state.turn
-                    this.toggilColor()
+                    return;
                 }
-                return;
+                this.jump = false;
+                state.turn = ! state.turn
+                this.toggilColor()
             }
-            state.arr[i2][j2] = state.arr[i1][j1];
-            state.arr[i1][j1] = 0;
-            this.drawer(state)
-            this.move = ""
-            this.jump = false;
-            state.turn = ! state.turn
-            this.toggilColor()
         }
-      }
+    }
+
+
+    updateState(state,move){
+        const i1 = parseInt(move[0])
+        const j1 = parseInt(move[1])
+        const i2 = parseInt(move[2])
+        const j2 = parseInt(move[3])
+        state.arr[i2][j2] = state.arr[i1][j1];
+        state.arr[i1][j1] = 0;
+        if(this.jump){
+            state.arr[i1 + state.arr[i2][j2]][j1 + (j2-j1)/2] = 0
+        }
+    }
+
+    isValidMove(state, move){
+        const i1 = parseInt(move[0])
+        const j1 = parseInt(move[1])
+        const i2 = parseInt(move[2])
+        const j2 = parseInt(move[3])
+        // not on the diagonal
+        if(Math.abs(j2-j1) !== Math.abs(i2-i1))
+        {
+            console.log("invalid move1");
+            this.move = move.slice(0,2)
+            return false;
+        }
+        // not forward
+        if( (  i2 < i1 && state.turn ) || ( i2 > i1 && !state.turn))
+        {
+            console.log("invalid move2");
+            this.move = move.slice(0,2)
+            return false;
+        }
+        // do not jump over a friend
+        if(Math.abs(i2-i1) !== 1 && !this.jump)
+        {
+            this.move = ""+ i1 + j1
+            console.log("jump over a friend")
+            return false;
+        }
+        
+        
+        return true;
+    }
 
     getTarget(state)
     {
@@ -118,8 +133,8 @@ class checkers extends Game{
                         }
                         if(j !== 0 && state.arr[i+direction][j-1] === -1 * direction)
                         {
-                            var ti = i + direction;
-                            var tj = j -1;
+                            ti = i + direction;
+                            tj = j -1;
                             
                             if(ti + direction > -1 && 2*tj-j >-1 &&ti + direction < 8 && 2*tj-j < 8 &&  state.arr[ti+direction][tj + (tj - j)] === 0)
                             {
