@@ -23,7 +23,7 @@ class chess extends Game{
         const pieces = [["rook","knight","bishop","queen","king","bishop","knight","rook"],["pawn","pawn","pawn","pawn","pawn","pawn","pawn","pawn"]];
         const modifiedBoard = board.props.children.map((cell, index) => {
           if(index < 16) {
-            const i = index < 7 ? 0 : 1;
+            const i = index < 8 ? 0 : 1;
             const j = index % 8;
             const piece = React.createElement("img", {src:"/pieces/black/"+pieces[i][j]+".png",name:pieces[i][j],key: index,className: "black",id:cell.props.id});
             return React.cloneElement(cell, {children: [piece], id: "0"});
@@ -45,6 +45,7 @@ class chess extends Game{
             state.curr.target.style.backgroundColor = "green";
             return;
         }
+        console.log(state);
         const currParent = state.curr.target.parentNode;
         let currNode = state.curr.target;
         if(state.curr.target.className!=="cellchess"){
@@ -86,14 +87,21 @@ class chess extends Game{
             case "rook": valid = this.validateRook(pieceColor, dy, dx, previd, currid); break;
             case "knight": valid = this.validateKnight(pieceColor, absDy, absDx, currid); break;
             case "bishop": valid = this.validateBishop(pieceColor, dy, dx, absDx, absDy, previd, currid); break;
-
+            case "queen": valid = this.validateQueen(pieceColor, dy, dx, absDx, absDy, previd, currid); break;
+            case "king": valid = this.validateKing(pieceColor, dy, dx, absDx, absDy, currid); break;
+        }
+        if(!valid){
+            if(input.target.className === (state.turn === 0 ? "black" : "white")){
+                state.curr.target.style.backgroundColor = "";
+                state.curr = input;
+                state.curr.target.style.backgroundColor = "green";
+            }
         }
         
         return valid;
     }
 
     updateState(state, input){
-        const id = input.target.id;
         state.prev = state.clicks?state.curr:null;
         state.curr = input;
         state.turn = state.clicks?this.switchTurn(state):state.turn;
@@ -177,8 +185,62 @@ class chess extends Game{
         return true;
     }
 
-    checkWin(state){}
+    validateQueen(pieceColor, dy, dx, absDx, absDy, previd, currid){
+        if (absDx !== absDy && dx !== 0 && dy !== 0) {
+            return false;
+        }
+        if(document.getElementById(currid).className === pieceColor){
+            return false;
+        }
+        if (dx === 0) {
+            const direction = dy > 0 ? 1 : -1;
+            for (let i = Math.floor(previd/10) + direction; i !== Math.floor(currid/10); i += direction) {
+              if (document.getElementById(i*10+previd%10).className !== "cellchess") {
+                return false;
+              }
+            }
+        } 
+        else if (dy === 0) {
+            const direction = dx > 0 ? 1 : -1;
+            for (let i = previd%10 + direction; i !== currid%10; i += direction) {
+                if (document.getElementById(Math.floor(previd/10)*10+i).className !== "cellchess") {
+                    return false;
+                }
+            }
+        } 
+        else {
+            const directionX = dx > 0 ? 1 : -1;
+            const directionY = dy > 0 ? 1 : -1;
+            for (let i = 1; i < absDx; i++) {
+                const x = previd%10 + i * directionX;
+                const y = Math.floor(previd/10) + i * directionY;
+                if (document.getElementById(y*10+x).className !== "cellchess") {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }   
 
+    validateKing(pieceColor, dy, dx, absDx, absDy, currid){
+        if (absDx > 1 || absDy > 1) {
+            return false;
+        }
+        if(document.getElementById(currid).className === pieceColor){
+            return false;
+        }
+        return true;
+    }
+    checkWin(state){
+        const kings = document.getElementsByName("king");
+        if(kings.length === 1){
+          this.removeEvents();
+        }
+    } 
+    removeEvents() {
+        const cells = document.querySelectorAll(".cellchess");
+        cells.forEach((cell) => cell.replaceWith(cell.cloneNode(true)));
+    }
 }
 
 export default chess;
