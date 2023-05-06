@@ -2,27 +2,24 @@ import React from "react";
 import Game from "../Game.js";
 
 class Queens extends Game {
-  constructor(props) {
-    super(props);
-    this.state = {
-      board: new Array(8).fill().map(() => new Array(8).fill(0)),
-      count: 8,
-      rowNum: 8,
-      colNum: 8,
-      ElementType: "div",
-      game: "queens",
-      move: null,
-      events: {
-        onClick: (event) => this.controller(this.state, event),
-        onMouseEnter: (event) => this.hover("enter", this.state, event),
-        onMouseLeave: (event) => this.hover("leave", this.state, event),
-      },
-    };
-  }
+ 
   updateBoard(state) {
+    if(state.undo){
+      document.getElementById(state.move).innerHTML = "";
+      const stateDiv = document.querySelector(".state");
+      if (stateDiv) {stateDiv.textContent = "unsolved";}
+      state.undo=0;
+      return;
+    }
+    if(state.count === 0 ){
+      const stateDiv = document.querySelector(".state");
+      if (stateDiv) {
+        stateDiv.textContent = "solved";
+      }
+    }
     const piece = document.createElement("div");
     piece.className = "fas fa-chess-queen";
-    state.move.target.append(piece);
+    document.getElementById(state.move).append(piece);
   }
   putPieces(board) {
     return (
@@ -33,38 +30,21 @@ class Queens extends Game {
     );
   }
   isValidMove(state, input) {
-    const id = input.target.id;
-    if (id === "" || state.board[Math.floor(id / 10)][id % 10] === 5) {
-      this.undo(state, input);
-      return false;
+    if(input.length > 2 || Math.floor(input/10) > 7 || Math.floor(input/10) < 0 || input % 10 > 7 || input % 10 < 0) return false;
+    if (state.board[Math.floor(input / 10)][input % 10] === 5) {
+      state.undo = 1;
+      return true;
     }
-    if (state.board[Math.floor(id / 10)][id % 10] !== 0) return false;
+    if (state.board[Math.floor(input / 10)][input % 10] !== 0) return false;
     return true;
   }
   updateState(state, input) {
-    const id = input.target.id;
-    this.markBoard(state, id, 1);
+    this.markBoard(state, input, state.undo?-1:1);
     state.move = input;
-    state.count--;
+    state.count+=state.undo?1:-1;
   }
   checkWin(state) {
-    if (state.count === 0) {
-      const stateDiv = document.querySelector(".state");
-      if (stateDiv) {
-        stateDiv.textContent = "solved";
-      }
-    }
-  }
-  undo(state, input) {
-    const id =
-      input.target.id === "" ? input.target.parentNode.id : input.target.id;
-    this.markBoard(state, id, -1);
-    state.count++;
-    document.getElementById(id).innerHTML = "";
-    const stateDiv = document.querySelector(".state");
-    if (stateDiv) {
-      stateDiv.textContent = "unsolved";
-    }
+    return state.count === 0;
   }
   markBoard(state, id, mark) {
     const row = Math.floor(id / 10);
@@ -86,18 +66,6 @@ class Queens extends Game {
       state.board[i][j] += mark;
     }
     state.board[row][col] -= mark;
-  }
-  hover(hover, state, input) {
-    if (hover === "leave") {
-      input.target.style.backgroundColor = "";
-      return;
-    }
-    const id = input.target.id;
-    if (state.board[Math.floor(id / 10)][id % 10] !== 0) {
-      input.target.style.backgroundColor = "red";
-    } else {
-      input.target.style.backgroundColor = "green";
-    }
   }
 }
 

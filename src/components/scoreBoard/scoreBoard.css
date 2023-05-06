@@ -15,12 +15,12 @@
     text-align: center;
     padding: 1rem 0;
 }
-.p1-score{
+.player1{
     color: blue;
     border-bottom: 5px solid blue;
     border-radius: 0.5rem 0 0 0.5rem;
 }
-.p2-score{
+.player2{
     color: red;
     border-bottom: 5px solid red;
     border-radius: 0 0.5rem 0.5rem 0;

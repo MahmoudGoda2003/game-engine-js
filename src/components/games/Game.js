@@ -19,13 +19,40 @@ export class Game {
 
   updateBoard(state) {}
 
+  getinput() {
+    let input = null;
+    while(input===null){
+      input = prompt("Enter your move");
+    }
+    return  input;
+  }
+
+  startGame(init) {
+   
+    setTimeout(() => {
+        const input = this.getinput();
+        var state = this.controller(init, input);
+        if(state!==undefined){
+          this.drawer(state);
+        }else{
+          state=init
+          alert("invalid move");
+        }
+        if(this.checkWin(state)){return}
+        return this.startGame(state);
+    }, 1000);
+
+    return this.init(init);
+  }
+
   controller(state, move) {
     if (!this.isValidMove(state, move)) {
       return;
     }
     this.updateState(state, move);
-    this.drawer(state);
-    this.checkWin(state);
+    //this.drawer(state);
+    //this.checkWin(state);
+    return state;
   }
   isValidMove(state, move) {}
 
@@ -37,7 +64,7 @@ export class Game {
     return (state.turn + 1) % state.playerNum;
   }
 
-  drawGameBoard(rowNum, colNum, name, ElementType, eventListeners) {
+  drawGameBoard(rowNum, colNum, name, ElementType) {
     const board = document.querySelector(".board");
     if (board) {
       board.remove();
@@ -57,7 +84,6 @@ export class Game {
               name={"white" + name}
               className={cellName}
               id={`${row}${col}`}
-              {...eventListeners}
             />
           );
         } else {
@@ -67,7 +93,6 @@ export class Game {
               name={"black" + name}
               className={cellName}
               id={`${row}${col}`}
-              {...eventListeners}
             />
           );
         }

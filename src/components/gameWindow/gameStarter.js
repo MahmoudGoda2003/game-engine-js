@@ -10,6 +10,7 @@ function getGame(gameName) {
     return {
       game: new XO(),
       cssFile: "/css/tic tack toe.css",
+      state:{turn: 0,playerNum: 2,board: new Array(9).fill(""),rowNum: 3,colNum: 3,ElementType: "div",game: "xo",move: null}
     };
   }
   if (gameName === "checkers") {
@@ -22,23 +23,23 @@ function getGame(gameName) {
     return {
       game: new Queens(),
       cssFile: "/css/8queens.css",
-    };
-  }
+      state: {board: new Array(8).fill().map(() => new Array(8).fill(0)),count: 8,rowNum: 8,colNum: 8,ElementType: "div",game: "queens",move: null,undo:0}}}
   if (gameName === "chess") {
     return {
       game: new chess(),
       cssFile: "/css/chess.css",
+      state: {playerNum: 2,turn: 1,rowNum : 8,colNum : 8,ElementType: "div",game: "chess",events: {onClick: (event) => this.controller(this.state, event)},curr: null,prev: null,clicks: 0}
     };
   }
 }
 
-export const GameStarter = () => {
+export function GameStarter(){
   const { id } = useParams();
-  const { game, cssFile } = getGame(id);
+  const { game, cssFile, state } = getGame(id);
   return (
     <>
       <link rel="stylesheet" href={cssFile} />
-      {game.drawer()}
+      {game.startGame(state)}
     </>
   );
 };
