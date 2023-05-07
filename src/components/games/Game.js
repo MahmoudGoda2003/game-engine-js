@@ -115,12 +115,13 @@ export class Game {
         }
       }
     }
-    return <>
+    return <div className={"board" + name}>{cells}</div>
+    // return <>
     
-    <div className="allLetters">{letters}</div>
-    <div className="allnums">{nums}</div>
-    <div className={"board" + name}>{cells}</div>
-    </> 
+    // <div className="allLetters">{letters}</div>
+    // <div className="allnums">{nums}</div>
+    // <div className={"board" + name}>{cells}</div>
+    // </> 
     
      
   }
