@@ -7,3 +7,37 @@ body{
     flex-direction: column;
     height: 100vh;
 }
+
+.allLetters{
+    display: flex;  
+    font-size: 5px;
+    color: red;
+    text-align: center;
+    vertical-align: middle; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.allnums{
+    font-size: 5px;
+    color: red;
+    display: grid;
+    vertical-align: middle; 
+    position: absolute;
+    left: 175px;
+    
+}
+
+.allnums span{
+    background: none;
+    display: inline;
+    text-align: center;
+    box-shadow: none;
+}
+
+.allLetters span{
+    background: none;
+    height: 20px;
+    display: inline;
+    box-shadow: none;
+}

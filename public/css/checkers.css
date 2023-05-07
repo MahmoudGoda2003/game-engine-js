@@ -20,7 +20,7 @@ div[id="25"].cellcheckers,
 div[id="27"].cellcheckers{
     width:  50px;
     height: 50px;
-    border: 2px solid white;
+    border: 2px solid red;
     background-color: black;
     border-radius: 100%; 
 }
@@ -39,13 +39,9 @@ div[id="65"].cellcheckers,
 div[id="67"].cellcheckers{
     width:  50px;
     height: 50px;
-    border: 2px solid black;
+    border: 2px solid blue;
     background-color: white;
     border-radius: 100%; 
-}
-
-div[name="blackcheckers"]:hover{
-    border: 2px solid red;
 }
 
 .boardcheckers{
