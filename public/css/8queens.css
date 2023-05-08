@@ -24,6 +24,6 @@ div[name="blackqueens"]{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 10%;
     font-size: 3rem;
-    
 }

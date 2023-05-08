@@ -6,6 +6,7 @@
     grid-template-rows: repeat(8,var(--cellSize));
     grid-template-columns: repeat(8,var(--cellSize));
     border: 5px solid black;
+    z-index: 1;
 }
 .cellchess{
     display: flex;

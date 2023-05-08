@@ -4,12 +4,12 @@ import React from "react";
 class chess extends Game{
 
     putPieces(board){
-        const pieces = [["rook","knight","bishop","queen","king","bishop","knight","rook"],["pawn","pawn","pawn","pawn","pawn","pawn","pawn","pawn"]];
+        const pieces = [["r","h","b","q","k","b","h","r"],["p","p","p","p","p","p","p","p"]];
         const modifiedBoard = board.props.children.map((cell, index) => {
           if(index < 16) {
             const i = index < 8 ? 0 : 1;
             const j = index % 8;
-            const piece = React.createElement("img", {src:"/pieces/black/"+pieces[i][j]+".png",name:pieces[i][j],key: index,className: "black",id:cell.props.id});
+            const piece = React.createElement("img", {src:"/pieces/black/"+pieces[i][j].toUpperCase()+".png",name:pieces[i][j].toUpperCase(),key: index,className: "black",id:cell.props.id});
             return React.cloneElement(cell, {children: [piece], id: "0"});
           } else if(index > 47){
             const i = index < 56 ? 1 : 0;
@@ -21,7 +21,7 @@ class chess extends Game{
         });
         return (
             <>
-            {super.drawNames("cellchess",8,8)}
+            {super.drawNames(8,8)}
             <div className="boardchess">{modifiedBoard}</div>
             </>
           
@@ -29,7 +29,7 @@ class chess extends Game{
       }            
 
     updateBoard(state){
-        if(state.prev === null){
+        if(state.clicks === 1){
            document.getElementById(state.curr).style.backgroundColor = "green";
             return;
         }
@@ -104,6 +104,7 @@ class chess extends Game{
         state.turn = state.clicks?this.switchTurn(state):state.turn;
         if(state.clicks && state.board[Math.floor(input/10)][input%10].toLowerCase() === 'k'){state.kings--;}
         state.board[Math.floor(input/10)][input%10] = state.clicks?state.board[Math.floor(state.prev/10)][state.prev%10]:state.board[Math.floor(input/10)][input%10];
+        state.board[Math.floor(state.prev/10)][state.prev%10] = state.clicks?'':state.board[Math.floor(state.prev/10)][state.prev%10];
         state.clicks = (state.clicks+1)%2;
     }
 

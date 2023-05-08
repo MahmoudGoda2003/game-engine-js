@@ -10,8 +10,7 @@ export class Game {
       state.rowNum,
       state.colNum,
       state.game,
-      state.ElementType,
-      state.events
+      state.ElementType
     );
     return this.putPieces(board);
   }
@@ -42,12 +41,7 @@ export class Game {
         return this.startGame(state);
     }, 1000);
 
-    return <>
-      {/* <div>{this.drawNames("cell"+init.game,init.rowNum,init.colNum)}</div> */}
-      <div>{this.init(init)}</div>
-      
-    </>
-    
+    return this.init(init);
   }
 
   controller(state, move) {
@@ -55,8 +49,6 @@ export class Game {
       return;
     }
     this.updateState(state, move);
-    //this.drawer(state);
-    //this.checkWin(state);
     return state;
   }
   isValidMove(state, move) {}
@@ -105,7 +97,7 @@ export class Game {
     return <div className={"board" + name}>{cells}</div>
   }
 
-  drawNames(cellName, rowNum, colNum){
+  drawNames(rowNum, colNum){
     const allLetters = "abcdefghi";
     const allNums = "123456789";
     var startI = 0;
@@ -114,7 +106,7 @@ export class Game {
     for(let col = 0 ; col < colNum; col++)
     {
       letters.push(<span 
-        className={cellName}
+        className="letter"
         id={`${col}`}>
         {allLetters[startI++]}
         </span>
@@ -123,16 +115,16 @@ export class Game {
     startI=0;
     for (let row = 0; row < rowNum; row++) {
       nums.push(<span 
-        className={cellName}
+        className="num"
         id={`n${row}`}>
         {allNums[startI++]}
         </span>
       )
     }
-    return <div className="names">
+    return <>
       <div className="allLetters">{letters}</div>
       <div className="allnums">{nums}</div>
-    </div>
+    </>
     
   }
 }

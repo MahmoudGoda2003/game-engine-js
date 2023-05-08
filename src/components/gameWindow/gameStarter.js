@@ -17,7 +17,7 @@ function getGame(gameName) {
     return {
       game: new checkers(),
       cssFile: "/css/checkers.css",
-      state:{turn: false, arr: checkersInitCase(), jump: false,rowNum: 8,colNum: 8,ElementType: "div",game: "checkers",events: {onClick: (event) => this.controller(this.state, event)} }
+      state:{turn: false, arr: checkersInitCase(), jump: false,rowNum: 8,colNum: 8,ElementType: "div",game: "checkers"} 
     };
   }
   if (gameName === "8queens") {
@@ -29,7 +29,7 @@ function getGame(gameName) {
     return {
       game: new chess(),
       cssFile: "/css/chess.css",
-      state: {playerNum: 2,turn: 1,rowNum : 8,colNum : 8,ElementType: "div",game: "chess",events: {onClick: (event) => this.controller(this.state, event)},curr: null,prev: null,clicks: 0}
+      state: {playerNum: 2,turn: 1,rowNum : 8,colNum : 8,ElementType: "div",game: "chess",curr: null,prev: null,clicks: 0,kings:2,board:[['R','H','B','Q','K','B','H','R'],['P','P','P','P','P','P','P','P'],['','','','','','','',''],['','','','','','','',''],['','','','','','','',''],['','','','','','','',''],['p','p','p','p','p','p','p','p'],['r','h','p','q','k','p','h','r']]}
     };
   }
 }
