@@ -63,4 +63,5 @@ div[id="67"].cellcheckers{
     width: var(--cellSize);
     height: var(--cellSize);
     box-shadow: none;
+    font-size: 35px;
 }

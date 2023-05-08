@@ -16,6 +16,41 @@ class checkers extends Game {
     };
   }
 
+  MakeInt(c){
+    switch (c) {
+      case 'a':
+        return 0
+      case 'b':
+        return 1
+      case 'c':
+        return 2
+      case 'd':
+        return 3
+      case 'e':
+        return 4
+      case 'f':
+        return 5
+      case 'g':
+        return 6
+      case 'h':
+        return 7
+      
+      default:
+        return -1
+    }
+  }  
+
+  parseInput(move){
+    var ans = ""
+    ans +=  parseInt(move[0]) -1;
+    ans +=  this.MakeInt(move[1]); 
+    ans +=  parseInt(move[2]) -1;
+    ans +=  this.MakeInt(move[3])
+    console.log(ans)
+    return ans
+
+  }
+
   updateBoard(state) {
     console.log(state.arr)
     for (var i = 0; i < 8; i++) {
@@ -32,10 +67,11 @@ class checkers extends Game {
 
   updateState(state, move) {
     console.log("in update state")
-    const i1 = parseInt(move[0]);
-    const j1 = parseInt(move[1]);
-    const i2 = parseInt(move[2]);
-    const j2 = parseInt(move[3]);
+    var parsed = this.parseInput(move)
+    const i1 = parseInt(parsed[0]);
+    const j1 = parseInt(parsed[1]);
+    const i2 = parseInt(parsed[2]);
+    const j2 = parseInt(parsed[3]);
     state.arr[i2][j2] = state.arr[i1][j1];
     state.arr[i1][j1] = 0;
     if (state.jump) {
@@ -54,17 +90,18 @@ class checkers extends Game {
   isValidMove(state, move) {
     if(move.length !== 4)
       return false
-    const i1 = parseInt(move[0]);
-    const j1 = parseInt(move[1]);
-    const i2 = parseInt(move[2]);
-    const j2 = parseInt(move[3]);
+    var parsed = this.parseInput(move)
+    const i1 = parseInt(parsed[0]);
+    const j1 = parseInt(parsed[1]);
+    const i2 = parseInt(parsed[2]);
+    const j2 = parseInt(parsed[3]);
     // check src
-    if(!this.selectSrc(move.slice(0,2), state)){
+    if(!this.selectSrc(parsed.slice(0,2), state)){
       console.log("wrong source cell")
       return false
     }
     // check dest
-    if(!this.selectDest(move.slice(2),state,move.slice(0,2))){
+    if(!this.selectDest(parsed.slice(2),state,parsed.slice(0,2))){
       console.log("wrong destnation cell")
       return false
     }
@@ -84,6 +121,25 @@ class checkers extends Game {
       return false;
     }
     return true;
+  }
+
+  checkWin(state) {
+    var c1 = 0;
+    var c2 = 0;
+    for(var i = 0 ; i < 8 ; i++)
+    {
+      for(var j = 0 ; j < 8 ; j++){
+        if (i % 2 !== j % 2){
+          if(state.arr[i][j] === -1)
+            c1++
+          if(state.arr[i][j] === 1)
+            c2++
+        }
+        if(c1 !== 0 && c2 !== 0)
+          return false
+      }
+    }
+    return true
   }
 
   getTarget(state) {
@@ -242,6 +298,7 @@ class checkers extends Game {
           score2={this.state.score2}
           turn={this.state.turn}
         />
+        {super.drawNames("cellcheckers",8,8)}
         {board}
       </>
     );

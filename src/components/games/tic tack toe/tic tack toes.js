@@ -20,6 +20,7 @@ class XO extends Game {
         <ScoreBoard
           turn={true}
         />
+        {super.drawNames("cellxo",3,3)}
         {board}
       </>
     );

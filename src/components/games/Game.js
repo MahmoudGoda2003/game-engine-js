@@ -42,7 +42,12 @@ export class Game {
         return this.startGame(state);
     }, 1000);
 
-    return this.init(init);
+    return <>
+      {/* <div>{this.drawNames("cell"+init.game,init.rowNum,init.colNum)}</div> */}
+      <div>{this.init(init)}</div>
+      
+    </>
+    
   }
 
   controller(state, move) {
@@ -69,27 +74,9 @@ export class Game {
     if (board) {
       board.remove();
     }
-
     const cells = [];
-    const allLetters = "01234567";
-    const allNums = "01234567";
-    var startI = 0;
-    const letters = [];
-    const nums = [];
     const cellName = "cell" + name;
     for (let row = 0; row < rowNum; row++) {
-      nums.push(<span 
-        className={cellName}
-        id={`n${row}`}>
-        {allLetters[startI]}
-        </span>
-      )
-      letters.push(<span 
-        className={cellName}
-        id={`${row}`}>
-        {allLetters[startI++]}
-        </span>
-      )
       for (let col = 0; col < colNum; col++) {
         if (
           (row % 2 === 0 && col % 2 === 0) ||
@@ -116,14 +103,37 @@ export class Game {
       }
     }
     return <div className={"board" + name}>{cells}</div>
-    // return <>
+  }
+
+  drawNames(cellName, rowNum, colNum){
+    const allLetters = "abcdefghi";
+    const allNums = "123456789";
+    var startI = 0;
+    const letters = [];
+    const nums = [];
+    for(let col = 0 ; col < colNum; col++)
+    {
+      letters.push(<span 
+        className={cellName}
+        id={`${col}`}>
+        {allLetters[startI++]}
+        </span>
+      )
+    }
+    startI=0;
+    for (let row = 0; row < rowNum; row++) {
+      nums.push(<span 
+        className={cellName}
+        id={`n${row}`}>
+        {allNums[startI++]}
+        </span>
+      )
+    }
+    return <div className="names">
+      <div className="allLetters">{letters}</div>
+      <div className="allnums">{nums}</div>
+    </div>
     
-    // <div className="allLetters">{letters}</div>
-    // <div className="allnums">{nums}</div>
-    // <div className={"board" + name}>{cells}</div>
-    // </> 
-    
-     
   }
 }
 export default Game;

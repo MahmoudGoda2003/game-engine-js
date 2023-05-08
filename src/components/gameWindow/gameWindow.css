@@ -10,34 +10,30 @@ body{
 
 .allLetters{
     display: flex;  
-    font-size: 5px;
+    font-size: 20px;
     color: red;
     text-align: center;
-    vertical-align: middle; 
-    justify-content: center; 
-    align-items: center;
 }
 
 .allnums{
-    font-size: 5px;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
     color: red;
-    display: grid;
-    vertical-align: middle; 
     position: absolute;
-    left: 175px;
+    left: 420px;
     
 }
 
-.allnums span{
+.allnums span,
+.allLetters span{
     background: none;
     display: inline;
     text-align: center;
     box-shadow: none;
+    /* border: 2px solid transparent; */
 }
 
-.allLetters span{
-    background: none;
+/* .allLetters span{
     height: 20px;
-    display: inline;
-    box-shadow: none;
-}
+} */

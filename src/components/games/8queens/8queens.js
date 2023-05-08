@@ -25,6 +25,7 @@ class Queens extends Game {
     return (
       <>
         <div className="state">unsolved</div>
+        {super.drawNames("cellqueens",8,8)}
         {board}
       </>
     );

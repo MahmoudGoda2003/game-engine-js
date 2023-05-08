@@ -20,7 +20,11 @@ class chess extends Game{
           return cell;
         });
         return (
-          <div className="boardchess">{modifiedBoard}</div>
+            <>
+            {super.drawNames("cellchess",8,8)}
+            <div className="boardchess">{modifiedBoard}</div>
+            </>
+          
         )
       }            
 
