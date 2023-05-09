@@ -1,8 +1,5 @@
 export class Game {
   drawer(state) {
-    if (state === undefined) {
-      return this.init(this.state);
-    }
     this.updateBoard(state);
   }
   init(state) {
@@ -21,6 +18,7 @@ export class Game {
   updateBoard(state) {}
 
   convertStringToInt(input) {
+    if(input===null){return null}
     let result = "";
     for (let i = 0; i < input.length; i++) {
       const charCode = input.charCodeAt(i);
@@ -51,7 +49,6 @@ export class Game {
   }
 
   startGame(init) {
-   
     setTimeout(() => {
         const input = this.getinput();
         var state = this.controller(init, input);
@@ -132,6 +129,7 @@ export class Game {
     {
       letters.push(<span 
         className="letter"
+        key={`l${col}`}
         id={`${col}`}>
         {allLetters[startI++]}
         </span>
@@ -141,7 +139,8 @@ export class Game {
     for (let row = 0; row < rowNum; row++) {
       nums.push(<span 
         className="num"
-        id={`n${row}`}>
+        key={`n${row}`}
+        id={`${row}`}>
         {allNums[startI++]}
         </span>
       )

@@ -31,6 +31,7 @@ class XO extends Game {
       </>
     );
   }
+  
   isValidMove(state, input) {
     if(input.length != 2 || Math.floor(input/10) > 2 || Math.floor(input/10) < 0 || input % 10 > 2 || input % 10 < 0) return false;
     if (state.board[(input % 10) + 3 * Math.floor(input / 10)] !== "" || input === "")

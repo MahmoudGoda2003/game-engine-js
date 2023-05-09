@@ -55,11 +55,10 @@ class checkers extends Game {
 
   updateState(state, move) {
     console.log("in update state")
-    var parsed = this.parseInput(move)
-    const i1 = parseInt(parsed[0]);
-    const j1 = parseInt(parsed[1]);
-    const i2 = parseInt(parsed[2]);
-    const j2 = parseInt(parsed[3]);
+    const i1 = move[0];
+    const j1 = move[1];
+    const i2 = move[2];
+    const j2 = move[3];
     state.arr[i2][j2] = state.arr[i1][j1];
     state.arr[i1][j1] = 0;
     if (state.jump) {
@@ -78,18 +77,17 @@ class checkers extends Game {
   isValidMove(state, move) {
     if(move.length !== 4)
       return false
-    var parsed = this.parseInput(move)
-    const i1 = parseInt(parsed[0]);
-    const j1 = parseInt(parsed[1]);
-    const i2 = parseInt(parsed[2]);
-    const j2 = parseInt(parsed[3]);
+    const i1 = move[0];
+    const j1 = move[1];
+    const i2 = move[2];
+    const j2 = move[3];
     // check src
-    if(!this.selectSrc(parsed.slice(0,2), state)){
+    if(!this.selectSrc(move.slice(0,2), state)){
       console.log("wrong source cell")
       return false
     }
     // check dest
-    if(!this.selectDest(parsed.slice(2),state,parsed.slice(0,2))){
+    if(!this.selectDest(move.slice(2),state,move.slice(0,2))){
       console.log("wrong destnation cell")
       return false
     }
