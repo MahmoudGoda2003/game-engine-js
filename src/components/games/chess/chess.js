@@ -33,20 +33,29 @@ class chess extends Game{
            document.getElementById(state.curr).style.backgroundColor = "green";
             return;
         }
-        const currParent = document.getElementById(state.curr).parentNode;
-        let currNode = document.getElementById(state.curr);
-        if(currNode.className!=="cellchess"){
-            currParent.id = state.curr;
-            currParent.innerHTML = "";
-            currNode = currParent;
+        console.log(state.board)
+        for (var i = 0; i < 8; i++) {
+            for (var j = 0; j < 8; j++) {
+                var element = document.getElementById(`${i}${j}`);
+                if(state.board[i][j] === '' && element.className !== "cellchess"){
+                    console.log("=")
+                    console.log(`${i}${j}`)
+                    element.parentNode.id = `${i}${j}`;
+                    element.parentNode.innerHTML = "";
+                }else if(state.board[i][j] !== '' && element.name !== state.board[i][j]){
+                    if(element.className !== "cellchess"){element = element.parentNode;}
+                    element.id = 0;
+                    element.innerHTML = "";
+                    const piece = document.createElement('img');
+                    piece.src = "/pieces/"+(state.board[i][j] === state.board[i][j].toLowerCase() ? "white/" : "black/")+state.board[i][j]+".png";
+                    piece.name = state.board[i][j];
+                    piece.className =  state.board[i][j] === state.board[i][j].toLowerCase() ? "white" : "black";
+                    piece.key = `${i}-${j}`;
+                    piece.id = `${i}${j}`;
+                    element.appendChild(piece);
+                }
+            }
         }
-        const prevParent = document.getElementById(state.prev).parentNode;
-        const prev = prevParent.removeChild(document.getElementById(state.prev));
-        prevParent.id = state.prev;
-        prev.style.backgroundColor = "";
-        prev.id=currNode.id;
-        currNode.id="0"
-        currNode.appendChild(prev);
     }
 
     getColor(board,id){
@@ -59,7 +68,7 @@ class chess extends Game{
     }
 
     isValidMove(state, input){
-        if(input.length > 2 || Math.floor(input/10) > 7 || Math.floor(input/10) < 0 || input % 10 > 7 || input % 10 < 0) return false;
+        if(input.length != 2 || Math.floor(input/10) > 7 || Math.floor(input/10) < 0 || input % 10 > 7 || input % 10 < 0) return false;
         if(state.curr === null && this.getColor(state.board,input) !== "white") return false;
         if((state.clicks === 0 && (this.getColor(state.board,input) !== (state.turn === 0 ? "black" : "white")))) return false;
         if(state.curr === null || state.clicks === 0) return true;
@@ -99,12 +108,11 @@ class chess extends Game{
     }
 
     updateState(state, input){
-        state.prev = state.clicks?state.curr:null;
+        state.board[Math.floor(input/10)][input%10] = state.clicks?state.board[Math.floor(state.curr/10)][state.curr%10]:state.board[Math.floor(input/10)][input%10];
+        state.board[Math.floor(state.curr/10)][state.curr%10] = state.clicks?'':state.board[Math.floor(state.curr/10)][state.curr%10];
         state.curr = input;
         state.turn = state.clicks?this.switchTurn(state):state.turn;
         if(state.clicks && state.board[Math.floor(input/10)][input%10].toLowerCase() === 'k'){state.kings--;}
-        state.board[Math.floor(input/10)][input%10] = state.clicks?state.board[Math.floor(state.prev/10)][state.prev%10]:state.board[Math.floor(input/10)][input%10];
-        state.board[Math.floor(state.prev/10)][state.prev%10] = state.clicks?'':state.board[Math.floor(state.prev/10)][state.prev%10];
         state.clicks = (state.clicks+1)%2;
     }
 

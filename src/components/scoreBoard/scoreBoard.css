@@ -17,14 +17,14 @@
     padding: 1rem 0;
 }
 .player1{
-    color: red;
-    border-bottom: 5px  solid red;
+    color: blue;
+    border-bottom: 5px  solid  blue;
     border-radius: 0.5rem 0 0 0.5rem;
 }
 .player2{
-    color:  blue;
+    color:  red;
     border-radius: 0 0.5rem 0.5rem 0;
-    border-bottom: 5px  solid ;
+    border-bottom: 5px  solid red;
 }
 .inactive{
     border-bottom: 5px solid transparent;

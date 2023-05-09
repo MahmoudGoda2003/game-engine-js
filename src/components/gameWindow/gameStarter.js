@@ -10,7 +10,7 @@ function getGame(gameName) {
     return {
       game: new XO(),
       cssFile: "/css/tic tack toe.css",
-      state:{turn: 0,playerNum: 2,board: new Array(9).fill(""),rowNum: 3,colNum: 3,ElementType: "div",game: "xo",move: null}
+      state:{turn: 1,playerNum: 2,board: new Array(9).fill(""),rowNum: 3,colNum: 3,ElementType: "div",game: "xo"}
     };
   }
   if (gameName === "checkers") {
@@ -24,12 +24,12 @@ function getGame(gameName) {
     return {
       game: new Queens(),
       cssFile: "/css/8queens.css",
-      state: {board: new Array(8).fill().map(() => new Array(8).fill(0)),count: 8,rowNum: 8,colNum: 8,ElementType: "div",game: "queens",move: null,undo:0}}}
+      state: {board: new Array(8).fill().map(() => new Array(8).fill(0)),count: 8,rowNum: 8,colNum: 8,ElementType: "div",game: "queens",undo:0}}}
   if (gameName === "chess") {
     return {
       game: new chess(),
       cssFile: "/css/chess.css",
-      state: {playerNum: 2,turn: 1,rowNum : 8,colNum : 8,ElementType: "div",game: "chess",curr: null,prev: null,clicks: 0,kings:2,board:[['R','H','B','Q','K','B','H','R'],['P','P','P','P','P','P','P','P'],['','','','','','','',''],['','','','','','','',''],['','','','','','','',''],['','','','','','','',''],['p','p','p','p','p','p','p','p'],['r','h','p','q','k','p','h','r']]}
+      state: {playerNum: 2,turn: 1,rowNum : 8,colNum : 8,ElementType: "div",game: "chess",curr: null,clicks: 0,kings:2,board:[['R','H','B','Q','K','B','H','R'],['P','P','P','P','P','P','P','P'],['','','','','','','',''],['','','','','','','',''],['','','','','','','',''],['','','','','','','',''],['p','p','p','p','p','p','p','p'],['r','h','b','q','k','b','h','r']]}
     };
   }
 }
