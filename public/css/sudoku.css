@@ -1,0 +1,115 @@
+
+.cellsudoku{
+    border: 2px solid black;
+    display: flex;
+    background-color: rgb(227, 220, 220);
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+}
+.boardsudoku{
+    width: 560px;
+    display: grid;
+    grid-template-rows: repeat(9,60px);
+    grid-template-columns: repeat(9,60px);
+}
+/*v1*/
+div[id = "02"].cellsudoku,
+div[id = "12"].cellsudoku,
+div[id = "22"].cellsudoku,
+div[id = "32"].cellsudoku,
+div[id = "42"].cellsudoku,
+div[id = "52"].cellsudoku,
+div[id = "62"].cellsudoku,
+div[id = "72"].cellsudoku,
+div[id = "82"].cellsudoku{
+    border-right: 5px solid blue;
+}
+div[id = "03"].cellsudoku,
+div[id = "13"].cellsudoku,
+div[id = "23"].cellsudoku,
+div[id = "33"].cellsudoku,
+div[id = "43"].cellsudoku,
+div[id = "53"].cellsudoku,
+div[id = "63"].cellsudoku,
+div[id = "73"].cellsudoku,
+div[id = "83"].cellsudoku{
+    border-left: 5px solid blue;
+}
+
+/*v2*/
+
+div[id = "05"].cellsudoku,
+div[id = "15"].cellsudoku,
+div[id = "25"].cellsudoku,
+div[id = "35"].cellsudoku,
+div[id = "45"].cellsudoku,
+div[id = "55"].cellsudoku,
+div[id = "65"].cellsudoku,
+div[id = "75"].cellsudoku,
+div[id = "85"].cellsudoku{
+    border-right: 5px solid blue;
+}
+div[id = "06"].cellsudoku,
+div[id = "16"].cellsudoku,
+div[id = "26"].cellsudoku,
+div[id = "36"].cellsudoku,
+div[id = "46"].cellsudoku,
+div[id = "56"].cellsudoku,
+div[id = "66"].cellsudoku,
+div[id = "76"].cellsudoku,
+div[id = "86"].cellsudoku{
+    border-left: 5px solid blue;
+}
+/*r1*/
+
+div[id = "20"].cellsudoku,
+div[id = "21"].cellsudoku,
+div[id = "22"].cellsudoku,
+div[id = "23"].cellsudoku,
+div[id = "24"].cellsudoku,
+div[id = "25"].cellsudoku,
+div[id = "26"].cellsudoku,
+div[id = "27"].cellsudoku,
+div[id = "28"].cellsudoku{
+    border-bottom: 5px solid blue;
+}
+div[id = "30"].cellsudoku,
+div[id = "31"].cellsudoku,
+div[id = "32"].cellsudoku,
+div[id = "33"].cellsudoku,
+div[id = "34"].cellsudoku,
+div[id = "35"].cellsudoku,
+div[id = "36"].cellsudoku,
+div[id = "37"].cellsudoku,
+div[id = "38"].cellsudoku{
+    border-top: 5px solid blue;
+}
+
+/*r2*/
+
+div[id = "50"].cellsudoku,
+div[id = "51"].cellsudoku,
+div[id = "52"].cellsudoku,
+div[id = "53"].cellsudoku,
+div[id = "54"].cellsudoku,
+div[id = "55"].cellsudoku,
+div[id = "56"].cellsudoku,
+div[id = "57"].cellsudoku,
+div[id = "58"].cellsudoku{
+    border-bottom: 5px solid blue;
+}
+div[id = "60"].cellsudoku,
+div[id = "61"].cellsudoku,
+div[id = "62"].cellsudoku,
+div[id = "63"].cellsudoku,
+div[id = "64"].cellsudoku,
+div[id = "65"].cellsudoku,
+div[id = "66"].cellsudoku,
+div[id = "67"].cellsudoku,
+div[id = "68"].cellsudoku{
+    border-top: 5px solid blue;
+}
+

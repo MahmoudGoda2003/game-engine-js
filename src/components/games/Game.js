@@ -22,7 +22,7 @@ export class Game {
   getinput() {
     let input = null;
     while(input===null){
-      input = prompt("Enter your move");
+     input = prompt("Enter your move");
     }
     return  input;
   }
@@ -39,6 +39,9 @@ export class Game {
           alert("invalid move");
         }
         if(this.checkWin(state)){return}
+        //
+        console.log(state.board);
+        //
         return this.startGame(state);
     }, 1000);
 
@@ -69,7 +72,7 @@ export class Game {
     return (state.turn + 1) % state.playerNum;
   }
 
-  drawGameBoard(rowNum, colNum, name, ElementType) {
+  drawGameBoard(rowNum, colNum, name, ElementType, grid) {
     const board = document.querySelector(".board");
     if (board) {
       board.remove();
@@ -88,7 +91,9 @@ export class Game {
               name={"white" + name}
               className={cellName}
               id={`${row}${col}`}
-            />
+            >
+              {grid[row][col]}
+            </ElementType>
           );
         } else {
           cells.push(
@@ -97,9 +102,12 @@ export class Game {
               name={"black" + name}
               className={cellName}
               id={`${row}${col}`}
-            />
+            >
+              {grid[row][col]}
+            </ElementType>
           );
         }
+        grid[row][col] = 100; // basic value user can't delete it
       }
     }
     return <div className={"board" + name}>{cells}</div>

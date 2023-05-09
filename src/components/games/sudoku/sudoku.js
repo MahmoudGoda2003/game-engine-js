@@ -51,8 +51,8 @@ class sudoku extends Game {
     isValidMove(state, move) {//1 controller
         if (move.length !== 3) return false;
         console.log("move : " + move);
-        const row = move[0];
-        const col = move[1];
+        const row = move[0] - 1;
+        const col = move[1] - 1;
         console.log("move : 2      :: " + move[2]);
         const numPlayed = move[2];
         // goto initaialized
@@ -69,8 +69,8 @@ class sudoku extends Game {
     }
 
     updateState(state, move) {//2 controller
-        const row = move[0];
-        const col = move[1];
+        const row = move[0] - 1;
+        const col = move[1] - 1;
         const numPlayed = move[2];
         state.board[row][col] = numPlayed;
     }
@@ -80,7 +80,7 @@ class sudoku extends Game {
                 if (state.board[i][j] !== 0) {
                     //console.log(i + "" + j);
                     let elem = document.getElementById(i + "" + j);
-                    elem.textContent = state.board[i][j];
+                    elem.innerHTML = state.board[i][j];
                 }
 
             }
@@ -88,11 +88,11 @@ class sudoku extends Game {
     }
 
     checkWin(state) { //4
-
+        
     }
 
     //start generator
-    
+
     
   
     //end generator
