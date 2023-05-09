@@ -1,0 +1,74 @@
+:root{
+    --cellSize:40px;
+}
+.boardxo{
+    display: grid;
+    border-radius: 15px;
+    background-color: rgba(255,255,255,.15);
+    -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+    transition: all 0.8s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+    box-shadow: rgba(24, 32, 79, 0.25) 0px 40px 80px, rgba(255, 255, 255, 0.5) 0px 0px 0px 0.5px inset;
+    grid-template-columns: repeat(3,8rem);
+    place-items: center;
+    justify-content: center;
+}
+.cellxo{
+    display: flex;
+    box-shadow: 0px 0px 8px #888;
+    color: rgba(37, 32, 55, 0.725);
+    background-color: rgba(255,255,255,0.5);
+    -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+    width: 7rem;
+    height: 7rem;
+    margin: 0.5rem;
+    border: 0.5px solid transparent;
+    border-radius: 10%;
+    justify-content: center;
+    align-items: center;
+}
+
+.cellxo:hover{
+    box-shadow: 0px 0px 15px #888;
+}
+
+.circle{
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    border: 15px solid blue;
+    box-sizing: border-box;
+}
+.cross{
+    height: 90px;
+    width: 90px;
+    position: relative;
+    transform: rotate(45deg);
+}
+.cross::before, .cross::after{
+    content: "";
+    position: absolute;
+    background-color: red;
+}
+.cross::before{
+    left: 50%;
+    width: 30%;
+    margin-left: -15%;
+    height: 100%;
+}
+.cross::after{
+    top: 50%;
+    height: 30%;
+    margin-top: -15%;
+    width: 100%;
+}
+.letter{
+   margin-right: auto;
+   margin-left: 10%;
+   margin-bottom: 3%;
+}
+.num{
+    margin-bottom: 200%;
+    margin-top: 45%;
+}

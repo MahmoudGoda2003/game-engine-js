@@ -1,0 +1,28 @@
+:root{
+    --cellSize:60px;
+}
+.boardchess{
+    display: grid;
+    grid-template-rows: repeat(8,var(--cellSize));
+    grid-template-columns: repeat(8,var(--cellSize));
+    border: 5px solid black;
+    z-index: 1;
+}
+.cellchess{
+    display: flex;
+    background-color: white;
+    width: var(--cellSize);
+    height: var(--cellSize);
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+}
+div[name="blackchess"]{
+    background-color: gray;
+}
+img{
+    width: 100%;
+}
+.cellchess:hover{
+    background-color: rgba(128, 128, 128, 0.522);
+}

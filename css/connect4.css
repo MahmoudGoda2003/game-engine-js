@@ -1,0 +1,31 @@
+:root{
+    --cellSize:60px;
+}
+.cellconnect4{
+    border: 2px solid black;
+    display: flex;
+    background-color: rgb(227, 220, 220);
+    width: var(--cellSize);
+    height: var(--cellSize);
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    border-radius: 100%;
+}
+.boardconnect4{
+    display: grid;
+    grid-template-rows: repeat(6,60px);
+    grid-template-columns: repeat(7,60px);
+    row-gap: 2px;
+    column-gap: 2px;
+    padding: 8px;
+    place-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 255, 0.515);
+}
+.letter{
+    margin-left: 0.75%;
+}
+.num{
+    margin-top: 5%;
+}
