@@ -94,7 +94,7 @@ export class Game {
             >{innerValue?values[row][col]:null} </ElementType>
           );
         }
-        if(innerValue){values[row][col] = values[row][col] !== null?100:null ;}
+        
       }
     }
     return <div className={"board" + name}>{cells}</div>

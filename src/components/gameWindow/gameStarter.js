@@ -64,7 +64,7 @@ function removeNumbers(board, percentage) {
   console.log("start remove :");
   // Calculate the number of numbers to remove.
   var count = Math.floor(81 * percentage);
-
+  
   console.log("count : " + count);
 
 

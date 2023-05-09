@@ -20,7 +20,8 @@ class sudoku extends Game {
     }
     checkRow(grid, i, j, num) {
         for (let col = 0; col < 9; col++) {
-            if (grid[i][col] === num) {
+            console.log("grid[i][col] : " + grid[i][col] );
+            if (grid[i][col] === num) { 
                 return false;
             }
         }
@@ -52,17 +53,20 @@ class sudoku extends Game {
         if (move.length !== 3) return false;
         console.log("move : " + move);
         const row = move[0] - 1;
-        const col = move[1] - 1;
+        const col = move.charCodeAt(1) - "a".charCodeAt(0);
+        console.log(typeof move); 
         console.log("move : 2      :: " + move[2]);
-        const numPlayed = move[2];
+        const numPlayed = parseInt(move[2]);
+        console.log(typeof col); 
+
         // goto initaialized
-        console.log("row : " + row + " col : " + col + " numPlayed : " + numPlayed + " cond : "+ (row < 0 || row > 8 || col < 0 || col > 8 || numPlayed < 1 || numPlayed > 9 || state.board[row][col] !== 0) );
-        if (row < 0 || row > 8 || col < 0 || col > 8 || numPlayed < 1 || numPlayed > 9 || state.board[row][col] !== 0) return false;
+        console.log("row : " + row + " col : " + col + " numPlayed : " + numPlayed + " cond : "+ (row < 0 || row > 8 || col < 0 || col > 8 || numPlayed < 1 || numPlayed > 9 || state.board[row][col] !== null) );
+        if (row < 0 || row > 8 || col < 0 || col > 8 || numPlayed < 1 || numPlayed > 9 || state.board[row][col] !== null) return false;
 
         let checkRow = this.checkRow(state.board, row, col, numPlayed);
         let checkCol = this.checkCol(state.board, row, col, numPlayed);
         let checkBox = this.checkBox(state.board, row, col, numPlayed);
-        console.log("checkRow : " + checkRow + " checkCol : " + checkCol + " checkBox : " + checkBox);
+        console.log("checkRow : " + checkRow + " checkCol : " + checkCol + " checkBox : " + checkBox + "grid :" +  state.board) ;
         if (checkRow && checkCol && checkBox) return true;
 
         return false;
@@ -70,14 +74,15 @@ class sudoku extends Game {
 
     updateState(state, move) {//2 controller
         const row = move[0] - 1;
-        const col = move[1] - 1;
-        const numPlayed = move[2];
+        const col = move.charCodeAt(1) - "a".charCodeAt(0);
+        console.log(typeof move); 
+        const numPlayed = parseInt(move[2]);
         state.board[row][col] = numPlayed;
     }
     updateBoard(state) { //3 edit the draw
         for(let i = 0 ; i < state.rowNum ; i++){
             for(let j = 0 ; j < state.rowNum ; j++){
-                if (state.board[i][j] !== 0) {
+                if (state.board[i][j] !== null) {
                     //console.log(i + "" + j);
                     let elem = document.getElementById(i + "" + j);
                     elem.innerHTML = state.board[i][j];
@@ -88,14 +93,35 @@ class sudoku extends Game {
     }
 
     checkWin(state) { //4
-        
+        let freq = [];
+        for (let i = 0; i < 27; i++) {
+            freq[i] = [0,0,0,0,0,0,0,0,0];
+        }
+        // rows 0 -> 8  cols 9 -> 17  boxes 18 -> 26
+        for (let i = 0; i < state.rowNum; i++) {
+            for (let j = 0; j < state.colNum; j++) {
+                let num = state.board[i][j];
+                if (num !== null) {
+                    freq[i][num - 1]++; // increment the freq of the number in the row
+                    freq[j + 9][num - 1]++; // increment the freq of the number in the col
+                    let row = Math.floor(i / 3);
+                    let col = Math.floor(j / 3);
+                    let transforamtion = row * 3 + col;
+                    freq[transforamtion + 18][num - 1]++; // increment the freq of the number in the box
+                }
+            }
+        }
+        for(let i = 0 ; i < 27 ; i++){
+            for(let j = 0 ; j < 9 ; j++){
+                if(freq[i][j] !== 1) return false;
+            }
+        }
+        console.log("win");
+        return true;
+
     }
 
-    //start generator
-
     
-  
-    //end generator
 
 
 

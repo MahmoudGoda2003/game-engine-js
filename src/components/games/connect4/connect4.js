@@ -139,9 +139,9 @@ class connect4 extends Game {
           console.log(i + "" + j);
           let elem = document.getElementById(i + "" + j);
           if (state.board[i][j] === 1)
-            elem.style.backgroundColor = "red";
-          else if (state.board[i][j] === 2)
             elem.style.backgroundColor = "blue";
+          else if (state.board[i][j] === 2)
+            elem.style.backgroundColor = "red";
 
         }
       }
