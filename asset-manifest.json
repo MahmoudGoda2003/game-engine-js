@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/game-engine-js/static/css/main.b8903acf.css",
-    "main.js": "/game-engine-js/static/js/main.08c578f2.js",
+    "main.js": "/game-engine-js/static/js/main.89ca90fa.js",
     "index.html": "/game-engine-js/index.html",
     "main.b8903acf.css.map": "/game-engine-js/static/css/main.b8903acf.css.map",
-    "main.08c578f2.js.map": "/game-engine-js/static/js/main.08c578f2.js.map"
+    "main.89ca90fa.js.map": "/game-engine-js/static/js/main.89ca90fa.js.map"
   },
   "entrypoints": [
     "static/css/main.b8903acf.css",
-    "static/js/main.08c578f2.js"
+    "static/js/main.89ca90fa.js"
   ]
 }
