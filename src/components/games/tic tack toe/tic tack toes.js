@@ -5,13 +5,19 @@ import { ScoreBoard } from "../../scoreBoard/scoreBoard.js";
 class XO extends Game {
   
   updateBoard(state) {
-    const piece = document.createElement("div");
-    piece.className = state.turn ? "circle" : "cross";
-    document.getElementById(state.move).append(piece);
+    for(let i = 0; i < state.board.length; i++){
+      var element = document.getElementById(`${Math.floor(i/3)}${i%3}`);
+      element.innerHTML = "";
+      if(state.board[i] !== ""){ 
+        const piece = document.createElement("div");
+        piece.className = state.board[i] === "o" ? "circle" : "cross";
+        element.append(piece);
+      }
+    }
     const score1 = document.querySelector(".player1");
     const score2 = document.querySelector(".player2");
-    score1.className = `score player1 ${state.turn && "inactive"}`;
-    score2.className = `score player2 ${!state.turn && "inactive"}`;
+    score1.className = `score player1 ${!state.turn && "inactive"}`;
+    score2.className = `score player2 ${state.turn && "inactive"}`;
   }
 
   putPieces(board) {
@@ -20,20 +26,19 @@ class XO extends Game {
         <ScoreBoard
           turn={true}
         />
-        {super.drawNames("cellxo",3,3)}
+        {super.drawNames(3,3)}
         {board}
       </>
     );
   }
   isValidMove(state, input) {
-    if(input.length > 2 || Math.floor(input/10) > 2 || Math.floor(input/10) < 0 || input % 10 > 2 || input % 10 < 0) return false;
+    if(input.length != 2 || Math.floor(input/10) > 2 || Math.floor(input/10) < 0 || input % 10 > 2 || input % 10 < 0) return false;
     if (state.board[(input % 10) + 3 * Math.floor(input / 10)] !== "" || input === "")
       return false;
     return true;
   }
   updateState(state, input) {
     state.board[(input % 10) + 3 * Math.floor(input / 10)] = state.turn ? "o" : "x";
-    state.move = input;
     state.turn = this.switchTurn(state);
   }
 

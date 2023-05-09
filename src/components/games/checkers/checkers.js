@@ -3,18 +3,6 @@ import Game from "../Game.js";
 import { ScoreBoard } from "../../scoreBoard/scoreBoard.js";
 
 class checkers extends Game {
-  constructor(props) {
-    super(props);
-    this.state = {
-      turn: true,
-      rowNum: 8,
-      colNum: 8,
-      ElementType: "div",
-      game: "checkers",
-      arr: new Array(8).fill().map(() => new Array(8).fill(0)),
-      events: { onClick: (event) => this.controller(this.state, event) },
-    };
-  }
 
   MakeInt(c){
     switch (c) {
@@ -294,11 +282,9 @@ class checkers extends Game {
     return (
       <>
         <ScoreBoard
-          score1={this.state.score1}
-          score2={this.state.score2}
-          turn={this.state.turn}
+          turn={true}
         />
-        {super.drawNames("cellcheckers",8,8)}
+        {super.drawNames(8,8)}
         {board}
       </>
     );
