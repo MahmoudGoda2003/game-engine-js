@@ -281,9 +281,7 @@ class checkers extends Game {
     
     return (
       <>
-        <ScoreBoard
-          turn={true}
-        />
+        <ScoreBoard turn={true}/>
         {super.drawNames(8,8)}
         {board}
       </>

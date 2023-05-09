@@ -10,7 +10,9 @@ export class Game {
       state.rowNum,
       state.colNum,
       state.game,
-      state.ElementType
+      state.ElementType,
+      state.board,
+      state.innerValue,
     );
     return this.putPieces(board);
   }
@@ -61,7 +63,7 @@ export class Game {
     return (state.turn + 1) % state.playerNum;
   }
 
-  drawGameBoard(rowNum, colNum, name, ElementType) {
+  drawGameBoard(rowNum, colNum, name, ElementType, values, innerValue) {
     const board = document.querySelector(".board");
     if (board) {
       board.remove();
@@ -80,7 +82,7 @@ export class Game {
               name={"white" + name}
               className={cellName}
               id={`${row}${col}`}
-            />
+            >{innerValue?values[row][col]:null} </ElementType>
           );
         } else {
           cells.push(
@@ -89,9 +91,10 @@ export class Game {
               name={"black" + name}
               className={cellName}
               id={`${row}${col}`}
-            />
+            >{innerValue?values[row][col]:null} </ElementType>
           );
         }
+        if(innerValue){values[row][col] = values[row][col] !== null?100:null ;}
       }
     }
     return <div className={"board" + name}>{cells}</div>
