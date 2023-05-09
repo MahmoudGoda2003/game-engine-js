@@ -13,7 +13,7 @@ class connect4 extends Game {
               score2={this.state.score2}
               turn={this.state.turn}
             /> */}
-        {super.drawNames("cellconnect4", 6, 7)}
+        {super.drawNames(6, 7)}
         {board}
       </>
     );
