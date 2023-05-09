@@ -20,10 +20,32 @@ export class Game {
 
   updateBoard(state) {}
 
+  convertStringToInt(input) {
+    let result = "";
+    for (let i = 0; i < input.length; i++) {
+      const charCode = input.charCodeAt(i);
+      if(i%2===0){
+        if (charCode < 49 || charCode > 57) { 
+          return null;
+        }
+        result += charCode - 49;
+        continue;
+      }
+      if (charCode >= 97 && charCode <= 106) { 
+        result += charCode - 97;
+      } else if (charCode >= 65 && charCode <= 74) { 
+        result += charCode - 65;
+      }else{
+        return null;
+      }
+    }
+    return result;
+  }
+
   getinput() {
     let input = null;
     while(input===null){
-      input = prompt("Enter your move");
+      input = this.convertStringToInt(prompt("Enter your move"));
     }
     return  input;
   }

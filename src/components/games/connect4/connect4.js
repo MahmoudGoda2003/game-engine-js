@@ -15,21 +15,21 @@ class connect4 extends Game {
     );
   }
   isEmpty(state, row, col) {
-    return state.board[row][col] === 0;
+    return state.board[row][col] === 100;
   }
   bellowIsFilled(state, row, col) {
     if (row === 5) return true;
     // return state.board[row + 1][col] !== 0;
 
-    return state.board[row + 1][col] !== 0;
+    return state.board[row + 1][col] !== 100;
 
   }
 
   isValidMove(state, move) {//1 controller  //return boolean
 
     if (move.length !== 2) return false;
-    const row = move.charAt(0) - 1;
-    const col = move.charCodeAt(1) - "a".charCodeAt(0);
+    const row = parseInt(move[0]);
+    const col = parseInt(move[1]);
     if (row > 5 || row < 0 || col < 0 || col > 6) return false;
     //console.log(row + "-col "+col)
     if (this.isEmpty(state, row, col) && this.bellowIsFilled(state, row, col)) {
@@ -42,10 +42,12 @@ class connect4 extends Game {
   }
 
   updateState(state, move) {//2 controller
-    const row = move.charAt(0) - 1;
-    const col = move.charCodeAt(1) - "a".charCodeAt(0);
+    const row = parseInt(move[0]);
+    const col = parseInt(move[1]);
     state.board[row][col] = state.turn;
-    state.turn = state.turn % 2 + 1;
+    state.turn = this.switchTurn(state);
+    //state.turn = state.turn % 2 + 1;
+    console.log("turn : " + state.turn);
     state.board.map((e) => { console.log(e) });
   }
   checkHorizontal(state, i, j) {
@@ -53,7 +55,7 @@ class connect4 extends Game {
     const board = state.board;
     let right = 0;
     let left = 0;
-    if (turn === 0) return 0;
+    if (turn === 100) return 0;
     for (let n = j + 1; n < state.colNum; n++) {
       if (board[i][n] === turn) right++;
       else break;
@@ -70,7 +72,7 @@ class connect4 extends Game {
     const board = state.board;
     let up = 0;
     let down = 0;
-    if (turn === 0) return 0;
+    if (turn === 100) return 0;
     for (let n = i + 1; n < state.rowNum; n++) {
       if (board[n][j] === turn) down++;
       else break;
@@ -87,7 +89,7 @@ class connect4 extends Game {
     const board = state.board;
     let upleft = 0;
     let downright = 0;
-    if (turn === 0) return 0;
+    if (turn === 100) return 0;
     for (let n = i - 1, m = j - 1; n >= 0 && m >= 0; n--, m--) {
       if (board[n][m] === turn) upleft++;
       else break;
@@ -104,7 +106,7 @@ class connect4 extends Game {
     const board = state.board;
     let upright = 0;
     let downleft = 0;
-    if (turn === 0) return 0;
+    if (turn === 100) return 0;
     for (let n = i - 1, m = j + 1; n >= 0 && m < state.colNum; n--, m++) {
       if (board[n][m] === turn) upright++;
       else break;
@@ -135,17 +137,21 @@ class connect4 extends Game {
   updateBoard(state) { //3 edit the draw
     for (let i = 0; i < state.rowNum; i++) {
       for (let j = 0; j < state.colNum; j++) {
-        if (state.board[i][j] !== 0) {
+        if (state.board[i][j] !== 100) {
           console.log(i + "" + j);
           let elem = document.getElementById(i + "" + j);
           if (state.board[i][j] === 1)
             elem.style.backgroundColor = "blue";
-          else if (state.board[i][j] === 2)
+          else if (state.board[i][j] === 0)
             elem.style.backgroundColor = "red";
 
         }
       }
     }
+    const score1 = document.querySelector(".player1");
+    const score2 = document.querySelector(".player2");
+    score1.className = `score player1 ${!state.turn && "inactive"}`;
+    score2.className = `score player2 ${state.turn && "inactive"}`;
   }
 
 

@@ -52,11 +52,11 @@ class sudoku extends Game {
     isValidMove(state, move) {//1 controller
         if (move.length !== 3) return false;
         console.log("move : " + move);
-        const row = move[0] - 1;
-        const col = move.charCodeAt(1) - "a".charCodeAt(0);
+        const row = move[0];
+        const col = move[1];
         console.log(typeof move); 
         console.log("move : 2      :: " + move[2]);
-        const numPlayed = parseInt(move[2]);
+        const numPlayed = parseInt(move[2]) + 1;
         console.log(typeof col); 
 
         // goto initaialized
@@ -73,10 +73,10 @@ class sudoku extends Game {
     }
 
     updateState(state, move) {//2 controller
-        const row = move[0] - 1;
-        const col = move.charCodeAt(1) - "a".charCodeAt(0);
+        const row = move[0];
+        const col = move[1];
         console.log(typeof move); 
-        const numPlayed = parseInt(move[2]);
+        const numPlayed = parseInt(move[2]) + 1;
         state.board[row][col] = numPlayed;
     }
     updateBoard(state) { //3 edit the draw

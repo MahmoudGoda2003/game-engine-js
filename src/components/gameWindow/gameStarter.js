@@ -40,7 +40,7 @@ function getGame(gameName) {
     return {
       game : new connect4(),
       cssFile : "/css/connect4.css",
-      state: {turn : 1,board: new Array(6).fill().map(() => new Array(7).fill(0)),rowNum: 6,colNum: 7, game : "connect4", ElementType: "div", innerValue:false}
+      state: {turn : 1, playerNum: 2, board: new Array(6).fill().map(() => new Array(7).fill(100)),rowNum: 6,colNum: 7, game : "connect4", ElementType: "div", innerValue:false}
     };
   }
   if(gameName === "sudoku"){
@@ -64,7 +64,7 @@ function removeNumbers(board, percentage) {
   console.log("start remove :");
   // Calculate the number of numbers to remove.
   var count = Math.floor(81 * percentage);
-  
+  count = 2;
   console.log("count : " + count);
 
 
