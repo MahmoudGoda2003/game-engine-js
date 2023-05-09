@@ -4,40 +4,6 @@ import { ScoreBoard } from "../../scoreBoard/scoreBoard.js";
 
 class checkers extends Game {
 
-  MakeInt(c){
-    switch (c) {
-      case 'a':
-        return 0
-      case 'b':
-        return 1
-      case 'c':
-        return 2
-      case 'd':
-        return 3
-      case 'e':
-        return 4
-      case 'f':
-        return 5
-      case 'g':
-        return 6
-      case 'h':
-        return 7
-      
-      default:
-        return -1
-    }
-  }  
-
-  parseInput(move){
-    var ans = ""
-    ans +=  parseInt(move[0]) -1;
-    ans +=  this.MakeInt(move[1]); 
-    ans +=  parseInt(move[2]) -1;
-    ans +=  this.MakeInt(move[3])
-    console.log(ans)
-    return ans
-
-  }
 
   updateBoard(state) {
     console.log(state.arr)
@@ -50,15 +16,16 @@ class checkers extends Game {
         }
       }
     }
+    this.toggilColor(state)
 
   }
 
   updateState(state, move) {
     console.log("in update state")
-    const i1 = move[0];
-    const j1 = move[1];
-    const i2 = move[2];
-    const j2 = move[3];
+    const i1 = parseInt(move[0]);
+    const j1 = parseInt(move[1]);
+    const i2 = parseInt(move[2]);
+    const j2 = parseInt(move[3]);
     state.arr[i2][j2] = state.arr[i1][j1];
     state.arr[i1][j1] = 0;
     if (state.jump) {
@@ -66,10 +33,8 @@ class checkers extends Game {
     }
     console.log(state.arr)
     if(!state.jump || state.jump && this.getTarget(state) === ""){
-      
       this.switchTurn(state)
       console.log(state.turn)
-
     }
     return state
   }
@@ -77,10 +42,10 @@ class checkers extends Game {
   isValidMove(state, move) {
     if(move.length !== 4)
       return false
-    const i1 = move[0];
-    const j1 = move[1];
-    const i2 = move[2];
-    const j2 = move[3];
+    const i1 = parseInt(move[0]);
+    const j1 = parseInt(move[1]);
+    const i2 = parseInt(move[2]);
+    const j2 = parseInt(move[3]);
     // check src
     if(!this.selectSrc(move.slice(0,2), state)){
       console.log("wrong source cell")
@@ -189,7 +154,6 @@ class checkers extends Game {
 
   switchTurn(state) {
     state.turn = !state.turn;
-    this.toggilColor(state)
   }
 
   toggilColor(state) {
