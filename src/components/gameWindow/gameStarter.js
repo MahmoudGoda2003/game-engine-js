@@ -4,6 +4,7 @@ import XO from "../games/tic tack toe/tic tack toes";
 import checkers from "../games/checkers/checkers";
 import Queens from "../games/8queens/8queens";
 import chess from "../games/chess/chess";
+import connect4 from "../games/connect4/connect4";
 
 function getGame(gameName) {
   if (gameName === "XO") {
@@ -30,6 +31,13 @@ function getGame(gameName) {
       game: new chess(),
       cssFile: "/css/chess.css",
       state: {playerNum: 2,turn: 1,rowNum : 8,colNum : 8,ElementType: "div",game: "chess",events: {onClick: (event) => this.controller(this.state, event)},curr: null,prev: null,clicks: 0}
+    };
+  }
+  if(gameName === "connect4"){
+    return {
+      game : new connect4(),
+      cssFile : "/css/connect4.css",
+      state: {turn : 1,score1 : 0, score2 : 0 ,board: new Array(6).fill().map(() => new Array(7).fill(0)),rowNum: 6,colNum: 7, game : "connect4", ElementType: "div",events: {onClick: (event) => this.controller(this.state, event)}  }
     };
   }
 }
