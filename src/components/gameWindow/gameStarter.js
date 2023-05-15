@@ -44,10 +44,11 @@ function getGame(gameName) {
     };
   }
   if(gameName === "sudoku"){
+    const { result, basicMoves } = sudoku2d();
     return {
       game : new sudoku(), 
       cssFile : "/css/sudoku.css",
-      state : {turn : 1, board : soduko2d(), rowNum: 9,colNum: 9, game : "sudoku", ElementType: "div",innerValue:true}
+      state : {turn : 1, board : result, rowNum: 9,colNum: 9, game : "sudoku", ElementType: "div",innerValue:true, basicMoves: basicMoves, deleteOrDraw:true} // deleteOrDraw = false -> draw, deleteOrDraw = true -> delete
     };
   }
 }
@@ -64,7 +65,7 @@ function removeNumbers(board, percentage) {
   console.log("start remove :");
   // Calculate the number of numbers to remove.
   var count = Math.floor(81 * percentage);
-  count = 2;
+
   console.log("count : " + count);
 
 
@@ -124,14 +125,22 @@ function generateSudoku() {
   return removeNumbers(board, Math.random() * 0.7); // remove 50% of the numbers
   
 }
-function soduko2d() {
+function sudoku2d() {
   let board = generateSudoku();
+  let basicMoves = new Array(9).fill().map(() => new Array(9).fill(false));
   const result = [];
   for (let i = 0; i < 9; i++) {
     result.push(board.slice(i * 9, i * 9 + 9));
   }
-  result.map((row) => console.log(row)); 
-  return result;
+  //result.map((row) => console.log(row)); 
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++){
+      if(result[i][j] !== null){
+        basicMoves[i][j] = true;
+      }
+    }
+  }
+  return {result, basicMoves};
 }
 
 function checkersInitCase(){
