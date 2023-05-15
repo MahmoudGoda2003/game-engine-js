@@ -64,9 +64,9 @@ function shuffle(array) {
 function removeNumbers(board, percentage) {
   console.log("start remove :");
   // Calculate the number of numbers to remove.
-  var count = Math.floor(81 * percentage);
+  var count = Math.floor(81 * (1 - percentage));
 
-  console.log("count : " + count);
+  console.log("count will be no  removed : " + count);
 
 
   // Loop while there are still numbers to remove.
@@ -122,7 +122,7 @@ function generateSudokuHelper(board, index) {
 function generateSudoku() {
   const board = Array(81).fill(0);
   generateSudokuHelper(board, 0);
-  return removeNumbers(board, Math.random() * 0.7); // remove 50% of the numbers
+  return removeNumbers(board, Math.random() * 0.9); // remove max 10% of the numbers
   
 }
 function sudoku2d() {
