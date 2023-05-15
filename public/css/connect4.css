@@ -1,6 +1,10 @@
 :root{
     --cellSize:60px;
 }
+body{
+    background-image: url("https://img.freepik.com/free-vector/vibrant-neon-bokeh-lights-effect-background-design_1017-24780.jpg?w=1060&t=st=1684171369~exp=1684171969~hmac=edf09728fe6c6d40f9abffaf6482351ce1ef68e5182604c7e7926a032343da42");
+    background-size: cover;
+}
 .cellconnect4{
     border: 2px solid black;
     display: flex;

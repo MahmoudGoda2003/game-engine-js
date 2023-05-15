@@ -18,7 +18,8 @@ export class Game {
   updateBoard(state) {}
 
   convertStringToInt(input) {
-    if(input===null){return null}
+    if(input===""){return null}
+    if(input==="stop" || input == null){return "stop"}
     let result = "";
     for (let i = 0; i < input.length; i++) {
       const charCode = input.charCodeAt(i);
@@ -51,6 +52,7 @@ export class Game {
   startGame(init) {
     setTimeout(() => {
         const input = this.getinput();
+        if(input==="stop"){return}
         var state = this.controller(init, input);
         if(state!==undefined){
           this.drawer(state);
@@ -79,6 +81,7 @@ export class Game {
   checkWin(state) {}
 
   switchTurn(state) {
+    console.log((state.turn + 1) % state.playerNum);
     return (state.turn + 1) % state.playerNum;
   }
 

@@ -1,6 +1,12 @@
 :root{
     --cellSize:60px;
 }
+body{
+    background-image: url("https://img.freepik.com/free-photo/gold-chess-chess-board-game-business-metaphor-leadership-concept_1150-19582.jpg?size=626&ext=jpg&ga=GA1.2.2086526639.1684154695&semt=ais");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
 .boardchess{
     display: grid;
     grid-template-rows: repeat(8,var(--cellSize));
@@ -22,7 +28,4 @@ div[name="blackchess"]{
 }
 img{
     width: 100%;
-}
-.cellchess:hover{
-    background-color: rgba(128, 128, 128, 0.522);
 }

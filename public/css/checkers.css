@@ -1,7 +1,11 @@
 :root{
     --cellSize:60px;
 }
-
+body{
+    background-image: url("https://img.freepik.com/free-vector/pattern-with-squares-light_1035-6830.jpg?w=740&t=st=1684171000~exp=1684171600~hmac=8043652fdcbd590c61b58573d64bec98e8f85df9febfac4ae4e2acc8f9e4ca89");
+    background-position: center;
+    background-size: cover;
+}
 div[name="blackcheckers"]{
     background-color: gray;
 }

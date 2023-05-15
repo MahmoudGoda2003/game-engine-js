@@ -1,6 +1,15 @@
 :root{
     --cellSize:40px;
 }
+
+  
+body{
+    background-image: url("https://img.freepik.com/premium-photo/orange-teal-geometry-shape-blue-background-abstract-background-3d-render-illustration_59017-862.jpg?w=1380");  
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+}
+  
 .boardxo{
     display: grid;
     border-radius: 15px;
@@ -8,7 +17,7 @@
     -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
     transition: all 0.8s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
-    box-shadow: rgba(24, 32, 79, 0.25) 0px 40px 80px, rgba(255, 255, 255, 0.5) 0px 0px 0px 0.5px inset;
+    box-shadow: rgba(24, 32, 79, 0.25) 0px 30px 30px, rgba(255, 255, 255, 0.5) 0px 0px 0px 0.5px inset;
     grid-template-columns: repeat(3,8rem);
     place-items: center;
     justify-content: center;

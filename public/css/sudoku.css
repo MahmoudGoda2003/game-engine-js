@@ -3,27 +3,32 @@
 
 }
 body{
-    background-image: url("https://img.freepik.com/free-vector/gradient-mountain-landscape_52683-77407.jpg?w=1380&t=st=1684153652~exp=1684154252~hmac=65acaba46917f89213c64a01255ff8f9fb0d48bf9d05511818a5b114a58db170");
+    background-image: url("https://img.freepik.com/free-vector/gradient-numerology-background_23-2150051043.jpg?w=1060&t=st=1684167050~exp=1684167650~hmac=e1d921206fe862714f6cdcb0d464a0615da892cd8cefa407c954712268f6f4fe");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
 .cellsudoku{
-    border: 2px solid black;
+    border: 2px solid blue;
     display: flex;
-    background-color: rgb(227, 220, 220);
+    background-color: rgb(197, 217, 245);
     width: var(--cellSize);
     height: var(--cellSize);
     justify-content: center;
     align-items: center;
+    font-weight: bold;
     font-size: 35px;
 }
 .boardsudoku{
-
-    width: 560px;
     display: grid;
-    grid-template-rows: repeat(9,60px);
-    grid-template-columns: repeat(9,60px);
+    grid-template-rows: repeat(9,var(--cellSize));
+    grid-template-columns: repeat(9,var(--cellSize));
+    border: 5px solid rgb(21, 21, 237);
+    place-items: center;
+    justify-content: center;
+}
+.allnums,.allLetters{
+    color: blue;
 }
 /*v1*/
 div[id = "02"].cellsudoku,

@@ -1,11 +1,19 @@
 :root{
     --cellSize:60px;
 }
+body{
+    background-image: url("https://img.freepik.com/premium-vector/chess-pieces-gray-white-seamless-pattern-sketch_345837-770.jpg?size=626&ext=jpg&ga=GA1.1.2086526639.1684154695&semt=ais");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
 .boardqueens{
     display: grid;
     grid-template-rows: repeat(8,var(--cellSize));
     grid-template-columns: repeat(8,var(--cellSize));
-    border: 5px solid black;
+    border: 6px solid black;
+    justify-content: center;
+    align-items: center;
 }
 .cellqueens{
     display: flex;

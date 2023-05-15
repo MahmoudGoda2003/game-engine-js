@@ -19,7 +19,7 @@ function getGame(gameName) {
     return {
       game: new checkers(),
       cssFile: "/css/checkers.css",
-      state:{turn: false, arr: checkersInitCase(), jump: false,rowNum: 8,colNum: 8,ElementType: "div",game: "checkers",innerValue:false} 
+      state:{turn: 1,playerNum: 2,arr: checkersInitCase(), jump: false,rowNum: 8,colNum: 8,ElementType: "div",game: "checkers",innerValue:false} 
     };
   }
   if (gameName === "8queens") {
@@ -33,7 +33,7 @@ function getGame(gameName) {
     return {
       game: new chess(),
       cssFile: "/css/chess.css",
-      state: {playerNum: 2,turn: 1,rowNum : 8,colNum : 8,ElementType: "div",game: "chess",curr: null,clicks: 0,kings:2,board:[['R','H','B','Q','K','B','H','R'],['P','P','P','P','P','P','P','P'],['','','','','','','',''],['','','','','','','',''],['','','','','','','',''],['','','','','','','',''],['p','p','p','p','p','p','p','p'],['r','h','b','q','k','b','h','r']], innerValue:false}
+      state: {playerNum: 2,turn: 1,rowNum : 8,colNum : 8,ElementType: "div",game: "chess",curr: null,clicks: 0,board:[['R','H','B','Q','K','B','H','R'],['P','P','P','P','P','P','P','P'],['','','','','','','',''],['','','','','','','',''],['','','','','','','',''],['','','','','','','',''],['p','p','p','p','p','p','p','p'],['r','h','b','q','k','b','h','r']], innerValue:false}
     };
   }
   if(gameName === "connect4"){

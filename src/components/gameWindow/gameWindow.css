@@ -1,4 +1,8 @@
 body{
+    background-image: url("../../../public/images/background.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     margin: 0;
     padding: 0;
     display:flex;
@@ -7,6 +11,9 @@ body{
     flex-direction: column;
     position: relative;
     height: 100vh;
+}
+div {
+    user-select: none;
 }
 
 .allLetters{

@@ -33,7 +33,7 @@ class checkers extends Game {
     }
     console.log(state.arr)
     if(!state.jump || state.jump && this.getTarget(state) === ""){
-      this.switchTurn(state)
+      state.turn = this.switchTurn(state)
       console.log(state.turn)
     }
     return state
@@ -62,7 +62,7 @@ class checkers extends Game {
       return false;
     }
     // not forward
-    if ((i2 < i1 && state.turn) || (i2 > i1 && !state.turn)) {
+    if ((i2 < i1 && !state.turn) || (i2 > i1 && state.turn)) {
       console.log("invalid move2");
       return false;
     }
@@ -107,8 +107,8 @@ class checkers extends Game {
         ) {
           // has turn
           if (
-            (state.turn && direction === 1) ||
-            (!state.turn && direction === -1)
+            (!state.turn && direction === 1) ||
+            (state.turn && direction === -1)
           ) {
             if (j !== 7 && state.arr[i + direction][j + 1] === -1 * direction) {
               var ti = i + direction;
@@ -152,15 +152,15 @@ class checkers extends Game {
     return target;
   }
 
-  switchTurn(state) {
+  /*switchTurn(state) {
     state.turn = !state.turn;
-  }
+  }*/
 
   toggilColor(state) {
     const score1 = document.querySelector(".player1");
     const score2 = document.querySelector(".player2");
-    score1.className = `score player1 ${state.turn && "inactive"}`;
-    score2.className = `score player2 ${!state.turn && "inactive"}`;
+    score1.className = `score player1 ${!state.turn && "inactive"}`;
+    score2.className = `score player2 ${state.turn && "inactive"}`;
   }
 
   makeEpty(n) {
@@ -193,7 +193,7 @@ class checkers extends Game {
     const j1 = parseInt(src[1]);
     // there is no possible jump only check turn
     if (t === "") {
-      if ((state.turn && state.arr[i1][j1] !== 1) ||(!state.turn && state.arr[i1][j1] !== -1))
+      if ((!state.turn && state.arr[i1][j1] !== 1) ||(state.turn && state.arr[i1][j1] !== -1))
         return false;
       else 
         return true;

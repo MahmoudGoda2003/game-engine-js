@@ -1,5 +1,6 @@
 import Game from "../Game";
 import React from "react";
+import { ScoreBoard } from "../../scoreBoard/scoreBoard.js";
 
 class chess extends Game{
 
@@ -9,18 +10,19 @@ class chess extends Game{
           if(index < 16) {
             const i = index < 8 ? 0 : 1;
             const j = index % 8;
-            const piece = React.createElement("img", {src:"/pieces/black/"+pieces[i][j].toUpperCase()+".png",name:pieces[i][j].toUpperCase(),key: index,className: "black",id:cell.props.id});
+            const piece = React.createElement("img", {src:"/images/pieces/black/"+pieces[i][j].toUpperCase()+".png",name:pieces[i][j].toUpperCase(),key: index,className: "black",id:cell.props.id});
             return React.cloneElement(cell, {children: [piece], id: "0"});
           } else if(index > 47){
             const i = index < 56 ? 1 : 0;
             const j = index % 8;
-            const piece = React.createElement("img", {src:"/pieces/white/"+pieces[i][j]+".png",name:pieces[i][j],key: index,className: "white",id:cell.props.id});
+            const piece = React.createElement("img", {src:"/images/pieces/white/"+pieces[i][j]+".png",name:pieces[i][j],key: index,className: "white",id:cell.props.id});
             return React.cloneElement(cell, {children: [piece], id: "0"});
           }
           return cell;
         });
         return (
             <>
+            <ScoreBoard turn={true}/>
             {super.drawNames(8,8)}
             <div className="boardchess">{modifiedBoard}</div>
             </>
@@ -33,7 +35,6 @@ class chess extends Game{
            document.getElementById(state.curr).style.backgroundColor = "green";
             return;
         }
-        console.log(state.board)
         for (var i = 0; i < 8; i++) {
             for (var j = 0; j < 8; j++) {
                 var element = document.getElementById(`${i}${j}`);
@@ -47,8 +48,7 @@ class chess extends Game{
                     element.id = 0;
                     element.innerHTML = "";
                     const piece = document.createElement('img');
-                    piece.src = "/pieces/"+(state.board[i][j] === state.board[i][j].toLowerCase() ? "white/" : "black/")+state.board[i][j]+".png";
-                    piece.name = state.board[i][j];
+                    piece.src = "/images/pieces/"+(state.board[i][j] === state.board[i][j].toLowerCase() ? "white/" : "black/")+state.board[i][j]+".png";
                     piece.className =  state.board[i][j] === state.board[i][j].toLowerCase() ? "white" : "black";
                     piece.key = `${i}-${j}`;
                     piece.id = `${i}${j}`;
@@ -56,6 +56,10 @@ class chess extends Game{
                 }
             }
         }
+        const score1 = document.querySelector(".player1");
+        const score2 = document.querySelector(".player2");
+        score1.className = `score player1 ${!state.turn && "inactive"}`;
+        score2.className = `score player2 ${state.turn && "inactive"}`;
     }
 
     getColor(board,id){
@@ -112,7 +116,6 @@ class chess extends Game{
         state.board[Math.floor(state.curr/10)][state.curr%10] = state.clicks?'':state.board[Math.floor(state.curr/10)][state.curr%10];
         state.curr = input;
         state.turn = state.clicks?this.switchTurn(state):state.turn;
-        if(state.clicks && state.board[Math.floor(input/10)][input%10].toLowerCase() === 'k'){state.kings--;}
         state.clicks = (state.clicks+1)%2;
     }
 
@@ -240,7 +243,16 @@ class chess extends Game{
         return true;
     }
     checkWin(state){
-       return state.kings === 1;
+        let kings = 0;
+        for(let i = 0; i < 8; i++){
+            for(let j = 0; j < 8; j++){
+                if(state.board[i][j].toLowerCase() === "k"){
+                    kings++;
+                }
+            }
+        }
+        console.log(kings);
+        return kings !== 2;
     } 
 }
 
