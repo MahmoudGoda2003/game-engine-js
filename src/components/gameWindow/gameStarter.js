@@ -122,7 +122,7 @@ function generateSudokuHelper(board, index) {
 function generateSudoku() {
   const board = Array(81).fill(0);
   generateSudokuHelper(board, 0);
-  return removeNumbers(board, Math.random() * 0.9); // remove max 10% of the numbers
+  return removeNumbers(board, (1 - 0.5 *Math.random()) * 0.9); // 10% of numbers will be removed
   
 }
 function sudoku2d() {
